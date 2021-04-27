@@ -1,0 +1,65 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://entity/TitleScreen/TitleScreen.gdns" type="Script" id=1]
+
+[node name="TitleScreen" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureRect" type="TextureRect" parent="."]
+margin_right = 1024.0
+margin_bottom = 600.0
+expand = true
+stretch_mode = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="GameTitle" type="Label" parent="."]
+margin_left = 221.93
+margin_top = 26.6207
+margin_right = 835.93
+margin_bottom = 144.621
+custom_colors/font_color = Color( 0.980392, 0.964706, 0.964706, 1 )
+text = "Project Name"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MainMenu" type="Panel" parent="."]
+margin_left = 351.0
+margin_top = 283.0
+margin_right = 681.0
+margin_bottom = 403.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MainMenu"]
+margin_left = 39.3213
+margin_top = 0.665161
+margin_right = 289.321
+margin_bottom = 120.665
+rect_clip_content = true
+alignment = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Start" type="Button" parent="MainMenu/VBoxContainer"]
+margin_top = 37.0
+margin_right = 249.0
+margin_bottom = 57.0
+text = "Start"
+
+[node name="Exit" type="Button" parent="MainMenu/VBoxContainer"]
+margin_top = 61.0
+margin_right = 249.0
+margin_bottom = 81.0
+text = "Exit"

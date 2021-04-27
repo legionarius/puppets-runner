@@ -1,0 +1,33 @@
+
+# Created by https://www.toptal.com/developers/gitignore/api/godot
+# Edit at https://www.toptal.com/developers/gitignore?templates=godot
+
+### Godot ###
+
+# Godot-specific ignores
+.import/
+export.cfg
+
+# Imported translations (automatically generated from CSV files)
+*.translation
+
+# Mono-specific ignores
+.mono/
+data_*/
+
+# GDNative
+*.os
+
+# End of https://www.toptal.com/developers/gitignore/api/godot
+
+# IDE
+.idea/
+
+# CMake
+cmake-build-debug/
+
+# Builded files
+lib/win64
+lib/x11
+*.os
+.sconsign.dblite
