@@ -461,7 +461,6 @@ add_executable(
         godot-cpp/include/gen/ResourceFormatLoader.hpp
         godot-cpp/include/gen/ResourceFormatSaver.hpp
         godot-cpp/include/gen/ResourceImporter.hpp
-        godot-cpp/include/gen/ResourceImporterOGGVorbis.hpp
         godot-cpp/include/gen/ResourceInteractiveLoader.hpp
         godot-cpp/include/gen/ResourceLoader.hpp
         godot-cpp/include/gen/ResourcePreloader.hpp

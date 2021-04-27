@@ -21,8 +21,7 @@ void TitleScreen::_exit() {
 }
 
 void TitleScreen::_start() {
-	throw std::logic_error{ "No Main Scene Set" };
-	//get_tree()->change_scene("");
+	get_tree()->change_scene("entity/MainScene/MainScene.tscn");
 }
 
 void TitleScreen::_input(const Ref<InputEvent> event) {
