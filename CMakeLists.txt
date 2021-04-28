@@ -699,5 +699,9 @@ add_executable(
         godot-cpp/include/gen/XMLParser.hpp
         godot-cpp/include/gen/YSort.hpp
         src/GDLibrary.cpp
-        src/TitleScreen.cpp src/TitleScreen.h)
+        src/TitleScreen.h src/TitleScreen.cpp
+        src/Action.h src/Action.cpp
+        src/ActionType.h
+        src/Level.h src/Level.cpp
+)
 
