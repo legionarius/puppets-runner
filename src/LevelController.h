@@ -10,6 +10,9 @@
 #include "PlayerController.h"
 
 #include <Area2D.hpp>
+#include "BlocGenerator.h"
+#include "Level.h"
+#include "TileMap.hpp"
 #include <Godot.hpp>
 #include <Node.hpp>
 #include <PackedScene.hpp>
@@ -23,11 +26,13 @@ namespace godot {
 class LevelController : public Node {
 	GODOT_CLASS(LevelController, Node);
 
-
 	Area2D *endBlock;
 	Player *player;
 	PlayerController *playerController;
 	Position2D *spawnPoint;
+
+	Level *map;
+	BlocGenerator blocGenerator;
 
 	std::list<std::list<ActionType>> actions;
 	std::list<std::list<ActionType>> generateActions();

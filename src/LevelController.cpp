@@ -8,9 +8,14 @@ using namespace godot;
 
 void LevelController::_init() {
 	actions = generateActions();
+	blocGenerator = BlocGenerator();
 }
 
 void LevelController::_ready() {
+	map = cast_to<Level>(get_node("TileMap"));
+	auto bloc = blocGenerator.generate_compat_bloc(ActionType::RUN, actions.front());
+	map->_load_bloc(bloc);
+
 	spawnPoint = Object::cast_to<Position2D>(get_node("SpawnPoint"));
 	endBlock = Object::cast_to<Area2D>(get_node("EndBlock"));
 	endBlock->connect("body_entered", this, "end_block");
@@ -26,9 +31,9 @@ void LevelController::_ready() {
 }
 
 std::list<std::list<ActionType>> LevelController::generateActions() {
-	return std::list {
-				std::list<ActionType>{ ActionType::RUN },
-				std::list<ActionType>{ ActionType::RUN, ActionType::RUN, ActionType::JUMP },
+	return std::list{
+		std::list<ActionType>{ ActionType::RUN, ActionType::JUMP, ActionType::RUN, ActionType::JUMP },
+		std::list<ActionType>{ ActionType::RUN, ActionType::JUMP, ActionType::JUMP },
 	};
 }
 
