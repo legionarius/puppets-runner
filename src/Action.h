@@ -7,9 +7,12 @@
 
 #include "ActionType.h"
 
+#include <Godot.hpp>
+
 namespace godot {
 struct Action {
 	ActionType type;
+	real_t timestamp;
 };
 } // namespace godot
 

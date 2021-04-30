@@ -10,11 +10,6 @@ void MainScene::_init() {
 }
 
 void MainScene::_ready() {
-	Position2D *spawnPoint = Object::cast_to<Position2D>(get_node("Level/SpawnPoint"));
-	Ref<PackedScene> playerScene = ResourceLoader::get_singleton()->load("entity/Player/Player.tscn");
-	player = Object::cast_to<Player>(playerScene->instance());
-	player->set_position(spawnPoint->get_position());
-	add_child(player);
 }
 
 void MainScene::_exit() {
