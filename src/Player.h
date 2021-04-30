@@ -5,6 +5,8 @@
 #ifndef GODOT_NATIVE_PLAYER_H
 #define GODOT_NATIVE_PLAYER_H
 
+#include "ActionType.h"
+
 #include <AnimatedSprite.hpp>
 #include <Godot.hpp>
 #include <KinematicBody2D.hpp>
@@ -13,6 +15,7 @@
 #include <Input.hpp>
 #include <Vector2.hpp>
 #include <sstream>
+#include <vector>
 
 namespace godot {
 
@@ -21,12 +24,9 @@ class Player : public KinematicBody2D {
 	real_t _gravity;
 	real_t _speed;
 	real_t _jump_speed;
-	Vector2 motion;
+	Vector2 _motion;
 
-	bool _move_left = false;
-	bool _move_right = false;
-	bool _apply_impulse = false;
-
+	ActionType _current_action;
 	AnimatedSprite *animation;
 
 public:
@@ -35,6 +35,8 @@ public:
 	void _ready();
 	void _physics_process(const real_t delta);
 	void _exit();
+
+	void set_current_action_type(ActionType actionType);
 };
 
 } // namespace godot

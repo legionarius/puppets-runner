@@ -699,13 +699,13 @@ add_executable(
         godot-cpp/include/gen/XMLParser.hpp
         godot-cpp/include/gen/YSort.hpp
         src/GDLibrary.cpp
-        src/Action.h
+        src/TitleScreen.h src/TitleScreen.cpp
+        src/Action.h src/Action.cpp
         src/ActionType.h
-        src/TitleScreen.h
-        src/MainScene.h
-        src/Player.h
-        src/Level.h
-        src/LevelController.h
-        src/LevelController.cpp
+        src/MainScene.h src/MainScene.cpp
+        src/Player.h src/Player.cpp
+        src/PlayerController.h src/PlayerController.cpp
+        src/Level.h src/Level.cpp
+        src/LevelController.h src/LevelController.cpp
 )
 
