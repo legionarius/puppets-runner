@@ -32,7 +32,7 @@ void LevelController::_ready() {
 
 std::list<std::list<ActionType>> LevelController::generateActions() {
 	return std::list{
-		std::list<ActionType>{ ActionType::RUN, ActionType::JUMP, ActionType::RUN, ActionType::JUMP },
+		std::list<ActionType>{ ActionType::RUN, ActionType::JUMP, ActionType::JUMP_OVER, ActionType::JUMP },
 		std::list<ActionType>{ ActionType::RUN, ActionType::JUMP, ActionType::JUMP },
 	};
 }

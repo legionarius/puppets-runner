@@ -27,6 +27,7 @@ public:
 	void addJumpChunk(const int chunkIdx, Bloc &bloc) const;
 	void addRunChunk(const int chunkIdx, Bloc &bloc) const;
 	void addPadding(Bloc &bloc, unsigned long padding) const;
+	void addJumpOverChunk(const int chunkIdx, Bloc &bloc);
 };
 } // namespace godot
 
