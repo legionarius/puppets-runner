@@ -30,6 +30,10 @@ Bloc BlocGenerator::generate_compat_bloc(const ActionType lastAction, std::list<
 				Godot::print("Generating JUMP chunk...");
 				addJumpChunk(i, bloc);
 				break;
+			case ActionType::JUMP_OVER:
+				Godot::print("Generating JUMP OVER chunk...");
+				addJumpOverChunk(i, bloc);
+				break;
 			default:
 				break;
 		}
@@ -42,17 +46,28 @@ Bloc BlocGenerator::generate_compat_bloc(const ActionType lastAction, std::list<
 }
 
 void BlocGenerator::addJumpChunk(const int chunkIdx, Bloc &bloc) const {
-	for (int y = ROWS - JUMP_ELEVATION - elevation; y < ROWS; y++) {
-		for (int x = chunkIdx * chunkSize; x < chunkIdx * chunkSize + chunkSize; x++) {
-			bloc[y][x] = 1;
+	auto start = chunkIdx * chunkSize;
+	auto end = start + chunkSize;
+	auto elevationStart = ROWS - JUMP_ELEVATION - elevation;
+
+	for (int y = elevationStart; y < ROWS; y++) {
+		for (int x = start; x < end; x++) {
+			if (y == elevationStart) {
+				bloc[y][x] = STEP;
+			} else {
+				bloc[y][x] = FLOOR;
+			}
 		}
 	}
 }
 
 void BlocGenerator::addRunChunk(const int chunkIdx, Bloc &bloc) const {
+	auto start = chunkIdx * chunkSize;
+	auto end = start + chunkSize;
+
 	for (int y = ROWS - elevation; y < ROWS; y++) {
-		for (int x = chunkIdx * chunkSize; x < chunkIdx * chunkSize + chunkSize; x++) {
-			bloc[y][x] = 1;
+		for (int x = start; x < end; x++) {
+			bloc[y][x] = FLOOR;
 		}
 	}
 }
@@ -63,6 +78,30 @@ void BlocGenerator::addPadding(Bloc &bloc, unsigned long padding) const {
 		for (int y = 0; y < ROWS; y++) {
 			for (int x = COLUMNS - padding; x < COLUMNS; x++) {
 				bloc[y][x] = bloc[y][x - 1];
+			}
+		}
+	}
+}
+
+void BlocGenerator::addJumpOverChunk(const int chunkIdx, Bloc &bloc) {
+	auto start = chunkIdx * chunkSize;
+	auto end = start + chunkSize;
+
+	if (chunkSize < OBSTACLE_SIZE) {
+		for (int y = ROWS - elevation; y < ROWS; y++) {
+			for (int x = start; x < end; x++) {
+				bloc[y][x] = OBSTACLE;
+			}
+		}
+	} else {
+		auto paddingStartIdx = start + OBSTACLE_SIZE;
+		for (int y = ROWS - elevation; y < ROWS; y++) {
+			for (int x = start; x < end; x++) {
+				if (x > start && x < paddingStartIdx) {
+					bloc[y][x] = OBSTACLE;
+				} else {
+					bloc[y][x] = FLOOR;
+				}
 			}
 		}
 	}

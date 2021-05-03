@@ -7,7 +7,8 @@
 
 enum class ActionType {
 	RUN,
-	JUMP
+	JUMP,
+	JUMP_OVER,
 };
 
 #endif //GODOT_NATIVE_ACTIONTYPE_H
