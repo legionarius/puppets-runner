@@ -9,6 +9,7 @@
 #include "ActionType.h"
 #include "Player.h"
 #include "PlayerController.h"
+#include "PlayerProgress.h"
 #include "Signals.h"
 #include "PlayerActionGenerator.h"
 #include "BlocGenerator.h"
@@ -30,6 +31,7 @@ class LevelController : public Node {
 	GODOT_CLASS(LevelController, Node);
 
 	Area2D *endBlock;
+	Area2D *midBlock;
 	Player *player;
 	PlayerController *playerController;
 	Position2D *spawnPoint;
@@ -53,6 +55,7 @@ public:
 	void _ready();
 
 	void end_block();
+	void mid_block();
 	void load_next_block_elements();
 	void load_next_block_tile();
 	void load_player();

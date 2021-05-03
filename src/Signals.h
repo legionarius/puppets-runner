@@ -7,9 +7,12 @@
 
 // Godot
 #define BODY_ENTERED "body_entered"
+#define PRESSED "pressed"
 
 // Custom
 #define NO_BLOC "no_bloc"
 #define NEXT_BLOC "next_bloc"
+#define PLAYER_PROGRESS "player_progress"
+#define BLOC_SELECTED "bloc_selected"
 
 #endif //GODOT_NATIVE_SIGNALS_H

@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://entity/BlocSelector/BlocThumb.gdns" type="Script" id=1]
+[ext_resource path="res://entity/BlocSelector/BlocThumbTexture.tres" type="Texture" id=2]
+
+[node name="TextureButton" type="TextureButton"]
+margin_right = 256.0
+margin_bottom = 144.0
+rect_clip_content = true
+size_flags_horizontal = 7
+size_flags_vertical = 7
+texture_normal = ExtResource( 2 )
+expand = true
+script = ExtResource( 1 )

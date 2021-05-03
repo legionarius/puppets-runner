@@ -743,7 +743,9 @@ format = 1
 script = ExtResource( 3 )
 
 [node name="EndBlock" type="Area2D" parent="."]
-position = Vector2( 1297, 400 )
+position = Vector2( 1290, 397 )
+collision_layer = 2
+collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="EndBlock"]
 position = Vector2( 28, 226.416 )
@@ -753,3 +755,12 @@ shape = SubResource( 15 )
 script = ExtResource( 4 )
 
 [node name="Partition" parent="." instance=ExtResource( 5 )]
+
+[node name="MidBlock" type="Area2D" parent="."]
+position = Vector2( 410.31, 131.94 )
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MidBlock"]
+position = Vector2( 28, 226.416 )
+shape = SubResource( 15 )

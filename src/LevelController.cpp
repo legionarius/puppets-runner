@@ -17,7 +17,10 @@ void LevelController::_ready() {
 	spawnPoint = cast_to<Position2D>(get_node("SpawnPoint"));
 	endBlock = cast_to<Area2D>(get_node("EndBlock"));
 	endBlock->connect(BODY_ENTERED, this, "end_block");
+	midBlock = Object::cast_to<Area2D>(get_node("MidBlock"));
+	midBlock->connect(BODY_ENTERED, this, "mid_block");
 	_addActions();
+
 	load_player();
 	load_next_block_elements();
 }
@@ -57,6 +60,7 @@ std::list<std::list<ActionType>> LevelController::generateActions() {
 }
 
 void LevelController::end_block() {
+	emit_signal(PLAYER_PROGRESS, static_cast<int>(PlayerProgress::END));
 	load_next_block_elements();
 	player->set_position(Vector2(spawnPoint->get_position().x, player->get_position().y));
 }
@@ -86,6 +90,10 @@ void LevelController::_addActions() {
 	}
 }
 
+void LevelController::mid_block() {
+	emit_signal(PLAYER_PROGRESS, static_cast<int>(PlayerProgress::MIDDLE));
+}
+
 void LevelController::_clearActions() {
 	emit_signal("clear_actions");
 }
@@ -96,6 +104,8 @@ void LevelController::_register_methods() {
 	register_method("end_block", &LevelController::end_block);
 	register_signal<LevelController>("add_action", "action", GODOT_VARIANT_TYPE_INT);
 	register_signal<LevelController>("clear_actions");
+	register_method("mid_block", &LevelController::mid_block);
 	register_signal<LevelController>(NO_BLOC);
 	register_signal<LevelController>(NEXT_BLOC);
+	register_signal<LevelController>(PLAYER_PROGRESS, "pos", GODOT_VARIANT_TYPE_INT);
 }

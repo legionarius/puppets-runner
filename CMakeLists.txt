@@ -711,4 +711,6 @@ add_executable(
         src/ActionIcon.cpp src/ActionIcon.h
         src/BlocGenerator.h src/BlocGenerator.cpp
         src/PlayerActionGenerator.h src/PlayerActionGenerator.cpp
+        src/BlocSelector.h src/BlocSelector.cpp
+        src/BlocThumb.h src/BlocThumb.cpp
 )
