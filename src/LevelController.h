@@ -8,11 +8,12 @@
 #include "ActionType.h"
 #include "Player.h"
 #include "PlayerController.h"
+#include "Signals.h"
 
-#include <Area2D.hpp>
 #include "BlocGenerator.h"
 #include "Level.h"
 #include "TileMap.hpp"
+#include <Area2D.hpp>
 #include <Godot.hpp>
 #include <Node.hpp>
 #include <PackedScene.hpp>
@@ -43,6 +44,8 @@ public:
 	void _ready();
 
 	void end_block();
+	void load_next_block();
+	void load_player();
 };
 } // namespace godot
 
