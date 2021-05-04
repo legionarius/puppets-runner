@@ -5,14 +5,15 @@
 #ifndef GODOT_NATIVE_LEVELCONTROLLER_H
 #define GODOT_NATIVE_LEVELCONTROLLER_H
 
+#include "Action.h"
 #include "ActionType.h"
 #include "Player.h"
 #include "PlayerController.h"
 #include "Signals.h"
-
+#include "PlayerActionGenerator.h"
 #include "BlocGenerator.h"
 #include "Level.h"
-#include "TileMap.hpp"
+
 #include <Area2D.hpp>
 #include <Godot.hpp>
 #include <Node.hpp>
@@ -20,9 +21,10 @@
 #include <Position2D.hpp>
 #include <Ref.hpp>
 #include <ResourceLoader.hpp>
+#include <TileMap.hpp>
 #include <Viewport.hpp>
 #include <list>
-
+#include <iterator>
 namespace godot {
 class LevelController : public Node {
 	GODOT_CLASS(LevelController, Node);
@@ -32,11 +34,15 @@ class LevelController : public Node {
 	PlayerController *playerController;
 	Position2D *spawnPoint;
 
-	Level *map;
+	PlayerActionGenerator playerActionGenerator;
 	BlocGenerator blocGenerator;
+
+	Level *map;
 
 	std::list<std::list<ActionType>> actions;
 	std::list<std::list<ActionType>> generateActions();
+
+	std::list<std::list<Action>> playerActions;
 
 	void _addActions();
 	void _clearActions();
@@ -47,8 +53,10 @@ public:
 	void _ready();
 
 	void end_block();
-	void load_next_block();
+	void load_next_block_elements();
+	void load_next_block_tile();
 	void load_player();
+	void load_next_block_player_action();
 };
 } // namespace godot
 

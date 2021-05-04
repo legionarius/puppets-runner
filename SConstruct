@@ -53,7 +53,7 @@ opts.Add(EnumVariable('bits', 'Target platform bits', '64' if is64 else '32', ('
 if 'GODOT_CPP' in os.environ.keys():
     cpp_bindings_path = os.environ['GODOT_CPP']
 else:
-    cpp_bindings_path = "godot-cpp"
+    cpp_bindings_path = "godot-cpp/"
 
 godot_headers_path = os.path.join(cpp_bindings_path, "godot-headers/")
 cpp_library = "libgodot-cpp"

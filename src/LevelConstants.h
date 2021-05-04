@@ -11,6 +11,7 @@
 #define CELLS_PER_BLOCK 2
 #define JUMP_ELEVATION 1
 #define OBSTACLE_SIZE 3
+#define WIDTH 1280
 
 // Type of blocs (4x4 tiles of 40)
 #define NOTHING 0
@@ -28,5 +29,6 @@
 #define SMALL_GRASS_CORNER_L 7
 #define VERT_GRASS_R 25
 #define VERT_GRASS_L 19
+
 
 #endif //GODOT_NATIVE_LEVELCONSTANTS_H

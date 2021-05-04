@@ -17,6 +17,8 @@
 #include <sstream>
 #include <vector>
 
+#define PLAYER_VELOCITY 200
+
 namespace godot {
 
 class Player : public KinematicBody2D {

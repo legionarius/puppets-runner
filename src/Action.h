@@ -12,7 +12,7 @@
 namespace godot {
 struct Action {
 	ActionType type;
-	real_t timestamp;
+	real_t trigger_position;
 };
 } // namespace godot
 

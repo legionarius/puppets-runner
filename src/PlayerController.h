@@ -13,7 +13,8 @@
 #include <SceneTree.hpp>
 #include <Viewport.hpp>
 #include <sstream>
-#include <vector>
+#include <list>
+
 
 namespace godot {
 
@@ -22,8 +23,7 @@ class PlayerController : public Node {
 
 	Player *player;
 
-	std::vector<Action> _actions;
-	real_t _elapsed_time;
+	std::list<Action> _actions;
 
 public:
 	static void _register_methods();
@@ -33,10 +33,10 @@ public:
 	void _exit();
 
 	void connect_player();
-	void reset_delta_aggregator();
-	void fill_action_list(std::vector<Action> action_list);
+	void fill_action_list(std::list<Action> action_list);
+
 };
 
-} // namespace godot
+}
 
 #endif //GODOT_NATIVE_PLAYERCONTROLLER_H

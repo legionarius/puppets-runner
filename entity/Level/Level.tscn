@@ -743,7 +743,7 @@ format = 1
 script = ExtResource( 3 )
 
 [node name="EndBlock" type="Area2D" parent="."]
-position = Vector2( 1290, 400 )
+position = Vector2( 1297, 400 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="EndBlock"]
 position = Vector2( 28, 226.416 )

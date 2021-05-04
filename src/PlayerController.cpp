@@ -13,12 +13,8 @@ void PlayerController::_ready() {
 }
 
 void PlayerController::_process(const real_t delta) {
-	_elapsed_time += delta;
-	std::stringstream test;
-	test << "Delta : " << _elapsed_time;
-	// Godot::print(test.str().c_str());
-	if (!_actions.empty()) {
-		if (_elapsed_time > _actions.back().timestamp) {
+	if(!_actions.empty()){
+		if (player->get_position().x > _actions.back().trigger_position){
 			player->set_current_action_type(_actions.back().type);
 			_actions.pop_back();
 		}
@@ -29,11 +25,7 @@ void PlayerController::connect_player() {
 	player = Object::cast_to<Player>(get_parent()->get_node("Player"));
 }
 
-void PlayerController::reset_delta_aggregator() {
-	_elapsed_time = 0.f;
-}
-
-void PlayerController::fill_action_list(std::vector<Action> action_list) {
+void PlayerController::fill_action_list(std::list<Action> action_list) {
 	_actions = action_list;
 }
 

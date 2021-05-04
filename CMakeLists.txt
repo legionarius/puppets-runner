@@ -710,4 +710,5 @@ add_executable(
         src/LevelController.h src/LevelController.cpp
         src/ActionIcon.cpp src/ActionIcon.h
         src/BlocGenerator.h src/BlocGenerator.cpp
+        src/PlayerActionGenerator.h src/PlayerActionGenerator.cpp
 )

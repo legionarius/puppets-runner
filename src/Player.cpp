@@ -8,7 +8,7 @@ using namespace godot;
 
 void Player::_init() {
 	_gravity = 20;
-	_speed = 200;
+	_speed = PLAYER_VELOCITY;
 	_jump_speed = 600;
 	_current_action = ActionType::RUN;
 }
@@ -23,21 +23,19 @@ void Player::_physics_process(const real_t delta) {
 	if (!is_on_floor()) {
 		_motion.y += _gravity;
 	} else {
-		switch (_current_action) {
-			case ActionType::RUN:
-				animation->play("run");
-				_motion.y = 2;
-				_motion.x = _speed;
-				break;
-			case ActionType::JUMP:
-				animation->play("jump");
-				_motion.y = -_jump_speed;
-				_motion.x = _speed;
+		if(_current_action == ActionType::RUN) {
+			animation->play("run");
+			_motion.y = 2;
+			_motion.x = _speed;
+		} else {
+			animation->play("jump");
+			_motion.y = -_jump_speed;
+			_motion.x = _speed;
+			_current_action = ActionType::RUN;
 		}
 	}
 
 	move_and_slide(_motion, Vector2(0, -1));
-	_current_action = ActionType::RUN;
 }
 
 void Player::set_current_action_type(ActionType actionType) {
