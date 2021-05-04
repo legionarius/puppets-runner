@@ -17,8 +17,8 @@ void PlayerController::_process(const real_t delta) {
 	std::stringstream test;
 	test << "Delta : " << _elapsed_time;
 	// Godot::print(test.str().c_str());
-	if(!_actions.empty()){
-		if (_elapsed_time > _actions.back().timestamp){
+	if (!_actions.empty()) {
+		if (_elapsed_time > _actions.back().timestamp) {
 			player->set_current_action_type(_actions.back().type);
 			_actions.pop_back();
 		}

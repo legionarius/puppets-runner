@@ -23,6 +23,6 @@ public:
 	void _start();
 };
 
-}
+} // namespace godot
 
 #endif //GODOT_NATIVE_MAINSCENE_H

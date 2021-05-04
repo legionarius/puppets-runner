@@ -17,9 +17,10 @@ void Player::_ready() {
 	animation = Object::cast_to<AnimatedSprite>(get_node("Animation"));
 }
 
-void Player::_physics_process(const real_t delta) {;
+void Player::_physics_process(const real_t delta) {
+	;
 
-	if(!is_on_floor()){
+	if (!is_on_floor()) {
 		_motion.y += _gravity;
 	} else {
 		switch (_current_action) {

@@ -9,10 +9,10 @@
 
 #include <AnimatedSprite.hpp>
 #include <Godot.hpp>
-#include <KinematicBody2D.hpp>
+#include <Input.hpp>
 #include <InputEventKey.hpp>
 #include <InputMap.hpp>
-#include <Input.hpp>
+#include <KinematicBody2D.hpp>
 #include <Vector2.hpp>
 #include <sstream>
 #include <vector>

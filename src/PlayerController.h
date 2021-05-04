@@ -15,7 +15,6 @@
 #include <sstream>
 #include <vector>
 
-
 namespace godot {
 
 class PlayerController : public Node {
@@ -36,9 +35,8 @@ public:
 	void connect_player();
 	void reset_delta_aggregator();
 	void fill_action_list(std::vector<Action> action_list);
-
 };
 
-}
+} // namespace godot
 
 #endif //GODOT_NATIVE_PLAYERCONTROLLER_H

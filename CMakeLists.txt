@@ -702,10 +702,12 @@ add_executable(
         src/TitleScreen.h src/TitleScreen.cpp
         src/Action.h src/Action.cpp
         src/ActionType.h
+        src/Partition.h src/Partition.cpp
         src/MainScene.h src/MainScene.cpp
         src/Player.h src/Player.cpp
         src/PlayerController.h src/PlayerController.cpp
         src/Level.h src/Level.cpp
         src/LevelController.h src/LevelController.cpp
+        src/ActionIcon.cpp src/ActionIcon.h
         src/BlocGenerator.h src/BlocGenerator.cpp
 )

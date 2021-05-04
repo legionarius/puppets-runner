@@ -38,6 +38,9 @@ class LevelController : public Node {
 	std::list<std::list<ActionType>> actions;
 	std::list<std::list<ActionType>> generateActions();
 
+	void _addActions();
+	void _clearActions();
+
 public:
 	static void _register_methods();
 	void _init();
