@@ -7,13 +7,13 @@
 
 #include "Action.h"
 #include "ActionType.h"
+#include "BlocGenerator.h"
+#include "Level.h"
 #include "Player.h"
+#include "PlayerActionGenerator.h"
 #include "PlayerController.h"
 #include "PlayerProgress.h"
 #include "Signals.h"
-#include "PlayerActionGenerator.h"
-#include "BlocGenerator.h"
-#include "Level.h"
 
 #include <Area2D.hpp>
 #include <Godot.hpp>
@@ -24,8 +24,11 @@
 #include <ResourceLoader.hpp>
 #include <TileMap.hpp>
 #include <Viewport.hpp>
-#include <list>
 #include <iterator>
+#include <list>
+
+#include "BlocSelector.h"
+
 namespace godot {
 class LevelController : public Node {
 	GODOT_CLASS(LevelController, Node);
@@ -40,6 +43,7 @@ class LevelController : public Node {
 	BlocGenerator blocGenerator;
 
 	Level *map;
+	BlocSelector *blocSelector;
 
 	std::list<std::list<ActionType>> actions;
 	std::list<std::list<ActionType>> generateActions();
@@ -60,6 +64,7 @@ public:
 	void load_next_block_tile();
 	void load_player();
 	void load_next_block_player_action();
+	void start();
 };
 } // namespace godot
 

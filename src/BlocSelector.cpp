@@ -25,3 +25,13 @@ void BlocSelector::_connect_selection(Node *node) {
 		button->connect(BLOC_SELECTED, node, "_on_bloc_selected");
 	}
 }
+
+void BlocSelector::_set_blocs(std::array<Bloc, 3> blocs) {
+	auto size = choiceContainer->get_child_count();
+	auto textureGenerator = BlocTextureGenerator();
+	for (int i = 0; i < size; i++) {
+		auto button = cast_to<BlocThumb>(choiceContainer->get_child(i));
+		auto texture = textureGenerator._generate(blocs[i]);
+		button->set_normal_texture(texture);
+	}
+}

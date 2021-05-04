@@ -19,8 +19,11 @@ void LevelController::_ready() {
 	endBlock->connect(BODY_ENTERED, this, "end_block");
 	midBlock = Object::cast_to<Area2D>(get_node("MidBlock"));
 	midBlock->connect(BODY_ENTERED, this, "mid_block");
+	blocSelector = cast_to<BlocSelector>(get_parent()->get_node("BlocSelector"));
 	_addActions();
+}
 
+void LevelController::start() {
 	load_player();
 	load_next_block_elements();
 }
@@ -70,6 +73,12 @@ void LevelController::load_next_block_tile() {
 	map->clear();
 	auto bloc = blocGenerator.generate_compat_bloc(ActionType::RUN, nextActions);
 	emit_signal(NEXT_BLOC);
+	// TODO : Create function to generate a shuffled array
+	//  containing the good bloc & 2 bad blocs.
+	if (blocSelector != nullptr) {
+		std::array<Bloc, 3> blocs = { bloc };
+		blocSelector->_set_blocs(blocs);
+	}
 	map->_load_bloc(bloc);
 }
 

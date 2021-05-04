@@ -14,6 +14,7 @@ void MainScene::_ready() {
 	levelController = cast_to<LevelController>(get_node("Level"));
 	blocSelector->_connect_selection(this);
 	levelController->connect(PLAYER_PROGRESS, this, "_on_progress");
+	_start();
 }
 
 void MainScene::_exit() {
@@ -21,6 +22,7 @@ void MainScene::_exit() {
 }
 
 void MainScene::_start() {
+	levelController->start();
 }
 
 void MainScene::_on_bloc_selected(int blocId) {
