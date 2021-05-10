@@ -30,7 +30,9 @@ public:
 	void _ready();
 
 	void _connect_selection(Node *node);
+	void _reset_selection();
 	void _set_blocs(std::array<Bloc, 3> blocs);
+	void _hide_not_selected(int8_t block_selected_index);
 };
 } // namespace godot
 

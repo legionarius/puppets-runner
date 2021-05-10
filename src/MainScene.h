@@ -5,8 +5,10 @@
 #ifndef GODOT_NATIVE_MAINSCENE_H
 #define GODOT_NATIVE_MAINSCENE_H
 
+#include <Button.hpp>
 #include <Godot.hpp>
 #include <Node.hpp>
+#include <ResourceLoader.hpp>
 #include <SceneTree.hpp>
 #include <Viewport.hpp>
 
@@ -27,8 +29,10 @@ public:
 	void _ready();
 	void _exit();
 	void _start();
+	void _restart();
 	void _on_bloc_selected(int blocId);
 	void _on_progress(int progressId);
+	void _end_level();
 };
 
 } // namespace godot

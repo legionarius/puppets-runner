@@ -21,16 +21,6 @@ animations = [ {
 "name": "idle",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 5 ) ],
-"loop": true,
-"name": "jump",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 6 ), ExtResource( 4 ) ],
-"loop": true,
-"name": "run",
-"speed": 5.0
-}, {
 "frames": [ ExtResource( 1 ) ],
 "loop": true,
 "name": "fall",
@@ -39,6 +29,16 @@ animations = [ {
 "frames": [ ExtResource( 7 ) ],
 "loop": true,
 "name": "hurt",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 6 ), ExtResource( 4 ) ],
+"loop": true,
+"name": "run",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 5 ) ],
+"loop": true,
+"name": "jump",
 "speed": 5.0
 } ]
 
@@ -57,3 +57,6 @@ animation = "hurt"
 position = Vector2( 0.629974, 3.4801 )
 scale = Vector2( 2.88, 2.4 )
 shape = SubResource( 2 )
+
+[node name="IdleTimer" type="Timer" parent="."]
+one_shot = true

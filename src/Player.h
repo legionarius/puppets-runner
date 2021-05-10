@@ -6,18 +6,20 @@
 #define GODOT_NATIVE_PLAYER_H
 
 #include "ActionType.h"
+#include "Signals.h"
 
 #include <AnimatedSprite.hpp>
 #include <Godot.hpp>
 #include <Input.hpp>
 #include <InputEventKey.hpp>
 #include <InputMap.hpp>
+#include <Timer.hpp>
 #include <KinematicBody2D.hpp>
 #include <Vector2.hpp>
 #include <sstream>
 #include <vector>
 
-#define PLAYER_VELOCITY 200
+#define PLAYER_VELOCITY 300
 
 namespace godot {
 
@@ -30,6 +32,7 @@ class Player : public KinematicBody2D {
 
 	ActionType _current_action;
 	AnimatedSprite *animation;
+	Timer *idleTimer;
 
 public:
 	static void _register_methods();
@@ -39,6 +42,7 @@ public:
 	void _exit();
 
 	void set_current_action_type(ActionType actionType);
+	void _idle_time_exceed();
 };
 
 } // namespace godot

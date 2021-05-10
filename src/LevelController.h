@@ -30,11 +30,15 @@
 #include "BlocSelector.h"
 
 namespace godot {
+
+using Bloc = std::array<std::array<uint8_t, COLUMNS>, ROWS>;
+
 class LevelController : public Node {
 	GODOT_CLASS(LevelController, Node);
 
 	Area2D *endBlock;
 	Area2D *midBlock;
+	Area2D *voidBloc;
 	Player *player;
 	PlayerController *playerController;
 	Position2D *spawnPoint;
@@ -44,14 +48,14 @@ class LevelController : public Node {
 
 	Level *map;
 	BlocSelector *blocSelector;
+	int8_t blocSelectedIndex;
 
 	std::list<std::list<ActionType>> actions;
 	std::list<std::list<ActionType>> generateActions();
 
-	std::list<std::list<Action>> playerActions;
-
 	void _addActions();
 	void _clearActions();
+	Bloc _get_selected_block_tile();
 
 public:
 	static void _register_methods();
@@ -62,8 +66,12 @@ public:
 	void mid_block();
 	void load_next_block_elements();
 	void load_next_block_tile();
+	void load_next_block_action();
+	void load_next_blocks_in_selector();
 	void load_player();
 	void load_next_block_player_action();
+	void set_block_selected_index(int8_t m_block_selected_index);
+	void end_level();
 	void start();
 };
 } // namespace godot

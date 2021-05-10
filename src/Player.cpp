@@ -14,11 +14,12 @@ void Player::_init() {
 }
 
 void Player::_ready() {
-	animation = Object::cast_to<AnimatedSprite>(get_node("Animation"));
+	animation = cast_to<AnimatedSprite>(get_node("Animation"));
+	idleTimer = cast_to<Timer>(get_node("IdleTimer"));
+	idleTimer->connect(TIMEOUT, this, "_idle_time_exceed");
 }
 
 void Player::_physics_process(const real_t delta) {
-	;
 
 	if (!is_on_floor()) {
 		_motion.y += _gravity;
@@ -35,6 +36,14 @@ void Player::_physics_process(const real_t delta) {
 		}
 	}
 
+	if(is_on_wall()){
+		if(idleTimer->is_stopped()){
+			idleTimer->start();
+		}
+	} else {
+		idleTimer->stop();
+	}
+
 	move_and_slide(_motion, Vector2(0, -1));
 }
 
@@ -42,11 +51,17 @@ void Player::set_current_action_type(ActionType actionType) {
 	_current_action = actionType;
 }
 
+void Player::_idle_time_exceed() {
+	emit_signal(PLAYER_IS_BLOCKED);
+}
+
 void Player::_register_methods() {
 	register_method("_init", &Player::_init);
 	register_method("_ready", &Player::_ready);
 	register_method("_physics_process", &Player::_physics_process);
+	register_method("_idle_time_exceed", &Player::_idle_time_exceed);
 	register_property("gravity", &Player::_gravity, 20.f);
 	register_property("speed", &Player::_speed, 200.f);
 	register_property("jump_speed", &Player::_jump_speed, 600.f);
+	register_signal<Player>(PLAYER_IS_BLOCKED);
 }

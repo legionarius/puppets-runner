@@ -10,6 +10,7 @@ void LevelController::_init() {
 	actions = generateActions();
 	playerActionGenerator = PlayerActionGenerator();
 	blocGenerator = BlocGenerator();
+	blocSelectedIndex = 1;
 }
 
 void LevelController::_ready() {
@@ -20,20 +21,22 @@ void LevelController::_ready() {
 	midBlock = Object::cast_to<Area2D>(get_node("MidBlock"));
 	midBlock->connect(BODY_ENTERED, this, "mid_block");
 	blocSelector = cast_to<BlocSelector>(get_parent()->get_node("BlocSelector"));
-	_addActions();
+	voidBloc = Object::cast_to<Area2D>(get_node("VoidBlock"));
+	voidBloc->connect(BODY_ENTERED, this, "end_level");
 }
 
 void LevelController::start() {
 	load_player();
 	load_next_block_elements();
+	load_next_block_action();
 }
 
 void LevelController::load_next_block_elements() {
 	if (actions.size() > 1) {
 		load_next_block_player_action();
 		load_next_block_tile();
-		_clearActions();
-		_addActions();
+		load_next_block_action();
+		load_next_blocks_in_selector();
 		actions.pop_front();
 	} else {
 		Godot::print("No more bloc to load");
@@ -46,6 +49,7 @@ void LevelController::load_player() {
 	player = cast_to<Player>(playerScene->instance());
 	player->set_position(spawnPoint->get_position());
 	player->set_name("Player");
+	player->connect(PLAYER_IS_BLOCKED, this, "end_level");
 	add_child(player);
 
 	playerController = cast_to<PlayerController>(get_node("PlayerController"));
@@ -69,17 +73,44 @@ void LevelController::end_block() {
 }
 
 void LevelController::load_next_block_tile() {
-	auto nextActions = actions.front();
 	map->clear();
-	auto bloc = blocGenerator.generate_compat_bloc(ActionType::RUN, nextActions);
+	auto bloc = _get_selected_block_tile();
 	emit_signal(NEXT_BLOC);
+	map->_load_bloc(bloc);
+}
+
+void LevelController::load_next_block_action() {
+	_clearActions();
+	_addActions();
+}
+
+void LevelController::load_next_blocks_in_selector() {
 	// TODO : Create function to generate a shuffled array
 	//  containing the good bloc & 2 bad blocs.
+	auto nextActions = std::next(actions.begin(), 1);
+	Bloc nextBloc = blocGenerator.generate_compat_bloc(ActionType::RUN, *nextActions);
 	if (blocSelector != nullptr) {
-		std::array<Bloc, 3> blocs = { bloc };
+		std::array<Bloc, 3> blocs = { nextBloc };
 		blocSelector->_set_blocs(blocs);
 	}
-	map->_load_bloc(bloc);
+}
+
+Bloc LevelController::_get_selected_block_tile() {
+	Bloc nextBloc = {{0}};
+	if (blocSelectedIndex != -1){
+		// Force correct selection to index 2
+		if(blocSelectedIndex == 1) {
+			auto nextActions = actions.front();
+			nextBloc = blocGenerator.generate_compat_bloc(ActionType::RUN, nextActions);
+		}
+	}
+	blocSelectedIndex = -1;
+	return nextBloc;
+}
+
+void LevelController::set_block_selected_index(int8_t m_block_selected_index) {
+	blocSelectedIndex = m_block_selected_index;
+	blocSelector->_hide_not_selected(m_block_selected_index);
 }
 
 void LevelController::load_next_block_player_action() {
@@ -107,14 +138,20 @@ void LevelController::_clearActions() {
 	emit_signal("clear_actions");
 }
 
+void LevelController::end_level() {
+	emit_signal(END_LEVEL);
+}
+
 void LevelController::_register_methods() {
 	register_method("_init", &LevelController::_init);
 	register_method("_ready", &LevelController::_ready);
 	register_method("end_block", &LevelController::end_block);
+	register_method("mid_block", &LevelController::mid_block);
+	register_method("end_level", &LevelController::end_level);
 	register_signal<LevelController>("add_action", "action", GODOT_VARIANT_TYPE_INT);
 	register_signal<LevelController>("clear_actions");
-	register_method("mid_block", &LevelController::mid_block);
 	register_signal<LevelController>(NO_BLOC);
 	register_signal<LevelController>(NEXT_BLOC);
+	register_signal<LevelController>(END_LEVEL);
 	register_signal<LevelController>(PLAYER_PROGRESS, "pos", GODOT_VARIANT_TYPE_INT);
 }

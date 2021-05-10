@@ -1,14 +1,35 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://entity/BlocSelector/BlocThumb.gdns" type="Script" id=1]
 [ext_resource path="res://entity/BlocSelector/BlocThumbTexture.tres" type="Texture" id=2]
+
+[sub_resource type="Gradient" id=1]
+offsets = PoolRealArray( 0, 0.594406 )
+colors = PoolColorArray( 0, 0, 0, 0, 0, 0, 0, 0 )
+
+[sub_resource type="GradientTexture" id=2]
+gradient = SubResource( 1 )
 
 [node name="TextureButton" type="TextureButton"]
 margin_right = 256.0
 margin_bottom = 144.0
 rect_clip_content = true
+mouse_default_cursor_shape = 2
 size_flags_horizontal = 7
 size_flags_vertical = 7
 texture_normal = ExtResource( 2 )
+texture_disabled = SubResource( 2 )
 expand = true
 script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="SelectedTexture" type="ColorRect" parent="."]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 1, 1, 1, 0.156863 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
