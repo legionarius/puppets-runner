@@ -30,9 +30,9 @@ void BlocSelector::_connect_selection(Node *node) {
 
 void BlocSelector::_hide_not_selected(int8_t block_selected_index) {
 	auto size = choiceContainer->get_child_count();
-	for (int8_t i = 1; i < size+1; i++) {
-		if (i != block_selected_index){
-			BlocThumb *button = cast_to<BlocThumb>(choiceContainer->get_child(i-1));
+	for (int8_t i = 1; i < size + 1; i++) {
+		if (i != block_selected_index) {
+			BlocThumb *button = cast_to<BlocThumb>(choiceContainer->get_child(i - 1));
 			button->set_disabled(true);
 			button->set_default_cursor_shape(0);
 		}

@@ -7,6 +7,7 @@
 
 #include "Action.h"
 #include "ActionType.h"
+#include "ActionTypeGenerator.h"
 #include "BlocGenerator.h"
 #include "Level.h"
 #include "Player.h"
@@ -15,6 +16,7 @@
 #include "PlayerProgress.h"
 #include "Signals.h"
 
+#include "BlocSelector.h"
 #include <Area2D.hpp>
 #include <Godot.hpp>
 #include <Node.hpp>
@@ -26,8 +28,6 @@
 #include <Viewport.hpp>
 #include <iterator>
 #include <list>
-
-#include "BlocSelector.h"
 
 namespace godot {
 
@@ -45,13 +45,13 @@ class LevelController : public Node {
 
 	PlayerActionGenerator playerActionGenerator;
 	BlocGenerator blocGenerator;
+	ActionTypeGenerator actionTypeGenerator;
 
 	Level *map;
 	BlocSelector *blocSelector;
 	int8_t blocSelectedIndex;
 
-	std::list<std::list<ActionType>> actions;
-	std::list<std::list<ActionType>> generateActions();
+	std::list<std::array<std::list<ActionType>, 3>> actions;
 
 	void _addActions();
 	void _clearActions();

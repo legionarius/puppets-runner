@@ -13,8 +13,8 @@
 #include <Input.hpp>
 #include <InputEventKey.hpp>
 #include <InputMap.hpp>
-#include <Timer.hpp>
 #include <KinematicBody2D.hpp>
+#include <Timer.hpp>
 #include <Vector2.hpp>
 #include <sstream>
 #include <vector>
