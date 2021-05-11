@@ -6,7 +6,7 @@
 [ext_resource path="res://entity/Level/PlayerController.gdns" type="Script" id=4]
 [ext_resource path="res://entity/Partition/Partition.tscn" type="PackedScene" id=5]
 
-[sub_resource type="RectangleShape2D" id=17]
+[sub_resource type="RectangleShape2D" id=14]
 extents = Vector2( 90.3792, 28.3499 )
 
 [sub_resource type="ConvexPolygonShape2D" id=2]
@@ -45,7 +45,7 @@ points = PoolVector2Array( 40, 40, 0, 40, 0, 0, 40, 0 )
 [sub_resource type="ConvexPolygonShape2D" id=13]
 points = PoolVector2Array( 40, 40, 0, 40, 0, 0, 40, 0 )
 
-[sub_resource type="TileSet" id=14]
+[sub_resource type="TileSet" id=15]
 0/name = "sheet.png 0"
 0/texture = ExtResource( 1 )
 0/tex_offset = Vector2( 0, 0 )
@@ -192,14 +192,8 @@ points = PoolVector2Array( 40, 40, 0, 40, 0, 0, 40, 0 )
 4/shape_offset = Vector2( 0, 0 )
 4/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
 4/shape_one_way = false
-4/shape_one_way_margin = 1.0
-4/shapes = [ {
-"autotile_coord": Vector2( 0, 0 ),
-"one_way": false,
-"one_way_margin": 1.0,
-"shape": null,
-"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
-} ]
+4/shape_one_way_margin = 0.0
+4/shapes = [  ]
 4/z_index = 0
 5/name = "sheet.png 5"
 5/texture = ExtResource( 1 )
@@ -725,27 +719,27 @@ points = PoolVector2Array( 40, 40, 0, 40, 0, 0, 40, 0 )
 } ]
 25/z_index = 0
 
-[sub_resource type="RectangleShape2D" id=15]
+[sub_resource type="RectangleShape2D" id=16]
 extents = Vector2( 10, 403.542 )
 
-[sub_resource type="RectangleShape2D" id=16]
+[sub_resource type="RectangleShape2D" id=17]
 extents = Vector2( 761.039, 10 )
 
 [node name="Level" type="Node"]
 script = ExtResource( 2 )
 
 [node name="SpawnPoint" type="Position2D" parent="."]
-position = Vector2( -124, 500 )
+position = Vector2( -45, 500 )
 
 [node name="StartBloc" type="StaticBody2D" parent="."]
 position = Vector2( -103, 667 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StartBloc"]
 position = Vector2( -1.33484, 0 )
-shape = SubResource( 17 )
+shape = SubResource( 14 )
 
 [node name="TileMap" type="TileMap" parent="."]
-tile_set = SubResource( 14 )
+tile_set = SubResource( 15 )
 cell_size = Vector2( 40, 40 )
 cell_custom_transform = Transform2D( 0, 0, 0, 0, 0, 0 )
 format = 1
@@ -758,7 +752,7 @@ collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="EndBlock"]
 position = Vector2( 34, 226.416 )
-shape = SubResource( 15 )
+shape = SubResource( 16 )
 
 [node name="PlayerController" type="Node" parent="."]
 script = ExtResource( 4 )
@@ -772,7 +766,7 @@ collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="MidBlock"]
 position = Vector2( 28, 226.416 )
-shape = SubResource( 15 )
+shape = SubResource( 16 )
 
 [node name="VoidBlock" type="Area2D" parent="."]
 position = Vector2( 585.414, 1027.66 )
@@ -781,4 +775,4 @@ collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="VoidBlock"]
 position = Vector2( 33.674, -177.349 )
-shape = SubResource( 16 )
+shape = SubResource( 17 )
