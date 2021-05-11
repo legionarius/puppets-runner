@@ -26,7 +26,7 @@ void PlayerController::connect_player() {
 }
 
 void PlayerController::fill_action_list(std::list<Action> action_list) {
-	_actions = action_list;
+	_actions.insert(_actions.begin(), action_list.begin(), action_list.end());
 }
 
 void PlayerController::_register_methods() {
