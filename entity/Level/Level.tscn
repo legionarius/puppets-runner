@@ -736,13 +736,14 @@ extents = Vector2( 761.039, 10 )
 script = ExtResource( 2 )
 
 [node name="SpawnPoint" type="Position2D" parent="."]
-position = Vector2( 20, 500 )
+position = Vector2( -124, 500 )
 
 [node name="TileMap" type="TileMap" parent="."]
 tile_set = SubResource( 14 )
 cell_size = Vector2( 40, 40 )
 cell_custom_transform = Transform2D( 0, 0, 0, 0, 0, 0 )
 format = 1
+tile_data = PoolIntArray( 1114108, 0, 0, 1114109, 0, 0, 1114110, 0, 0, 1114111, 0, 0, 1179644, 0, 0, 1179645, 0, 0, 1179646, 0, 0, 1179647, 0, 0 )
 script = ExtResource( 3 )
 
 [node name="EndBlock" type="Area2D" parent="."]

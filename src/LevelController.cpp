@@ -59,7 +59,7 @@ void LevelController::load_player() {
 std::list<std::list<ActionType>> LevelController::generateActions() {
 	return std::list{
 		std::list<ActionType>{ ActionType::RUN, ActionType::JUMP, ActionType::JUMP },
-		std::list<ActionType>{ ActionType::RUN, ActionType::JUMP_OVER, ActionType::RUN },
+		std::list<ActionType>{ ActionType::JUMP_OVER, ActionType::JUMP_OVER, ActionType::RUN },
 		std::list<ActionType>{ ActionType::RUN, ActionType::JUMP, ActionType::RUN },
 		std::list<ActionType>{ ActionType::RUN, ActionType::JUMP, ActionType::RUN, ActionType::JUMP },
 		std::list<ActionType>{ ActionType::RUN, ActionType::JUMP, ActionType::RUN, ActionType::JUMP },
