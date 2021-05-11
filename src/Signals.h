@@ -19,5 +19,4 @@
 #define PLAYER_IS_BLOCKED "player_is_blocked"
 #define END_LEVEL "end_level"
 
-
 #endif //GODOT_NATIVE_SIGNALS_H

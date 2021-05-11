@@ -7,9 +7,10 @@
 using namespace godot;
 
 void LevelController::_init() {
-	actions = generateActions();
 	playerActionGenerator = PlayerActionGenerator();
 	blocGenerator = BlocGenerator();
+	actionTypeGenerator = ActionTypeGenerator();
+	actions = actionTypeGenerator.generate_actions(10, 3);
 	blocSelectedIndex = 1;
 }
 
@@ -28,7 +29,6 @@ void LevelController::_ready() {
 void LevelController::start() {
 	load_player();
 	load_next_block_elements();
-	load_next_block_action();
 }
 
 void LevelController::load_next_block_elements() {
@@ -56,16 +56,6 @@ void LevelController::load_player() {
 	playerController->connect_player();
 }
 
-std::list<std::list<ActionType>> LevelController::generateActions() {
-	return std::list{
-		std::list<ActionType>{ ActionType::RUN, ActionType::JUMP, ActionType::JUMP },
-		std::list<ActionType>{ ActionType::JUMP_OVER, ActionType::JUMP_OVER, ActionType::RUN },
-		std::list<ActionType>{ ActionType::RUN, ActionType::JUMP, ActionType::RUN },
-		std::list<ActionType>{ ActionType::RUN, ActionType::JUMP, ActionType::RUN, ActionType::JUMP },
-		std::list<ActionType>{ ActionType::RUN, ActionType::JUMP, ActionType::RUN, ActionType::JUMP },
-	};
-}
-
 void LevelController::end_block() {
 	emit_signal(PLAYER_PROGRESS, static_cast<int>(PlayerProgress::END));
 	load_next_block_elements();
@@ -87,21 +77,24 @@ void LevelController::load_next_block_action() {
 void LevelController::load_next_blocks_in_selector() {
 	// TODO : Create function to generate a shuffled array
 	//  containing the good bloc & 2 bad blocs.
-	auto nextActions = std::next(actions.begin(), 1);
-	Bloc nextBloc = blocGenerator.generate_compat_bloc(ActionType::RUN, *nextActions);
+
+	std::array<Bloc, 3> blocs;
+	std::array<std::list<ActionType>, 3> nextActionsArray = *std::next(actions.begin(), 1);
+	for (int i = 0; i < nextActionsArray.size(); i++) {
+		blocs[i] = blocGenerator.generate_compat_bloc(ActionType::RUN, nextActionsArray[i]);
+	}
 	if (blocSelector != nullptr) {
-		std::array<Bloc, 3> blocs = { nextBloc };
 		blocSelector->_set_blocs(blocs);
 	}
 }
 
 Bloc LevelController::_get_selected_block_tile() {
-	Bloc nextBloc = {{0}};
-	if (blocSelectedIndex != -1){
+	std::array<std::list<ActionType>, 3> nextActionsArray = actions.front();
+	Bloc nextBloc = { { 0 } };
+	if (blocSelectedIndex != -1) {
 		// Force correct selection to index 2
-		if(blocSelectedIndex == 1) {
-			auto nextActions = actions.front();
-			nextBloc = blocGenerator.generate_compat_bloc(ActionType::RUN, nextActions);
+		if (blocSelectedIndex == 1) {
+			nextBloc = blocGenerator.generate_compat_bloc(ActionType::RUN, nextActionsArray.front());
 		}
 	}
 	blocSelectedIndex = -1;
@@ -114,16 +107,16 @@ void LevelController::set_block_selected_index(int8_t m_block_selected_index) {
 }
 
 void LevelController::load_next_block_player_action() {
-	std::list<std::list<ActionType>>::iterator actionsIterator = actions.begin();
-	std::list<Action> nextActions = playerActionGenerator.generate_player_action(actions.front(), *std::next(actionsIterator, 1));
+	std::list<std::array<std::list<ActionType>, 3>>::iterator actionsIterator = actions.begin();
+
+	std::list<Action> nextActions = playerActionGenerator.generate_player_action(actions.begin()->front(), std::next(actionsIterator, 1)->front());
 	playerController->fill_action_list(nextActions);
 }
 
 void LevelController::_addActions() {
 	if (!actions.empty()) {
-		auto nextBlock = std::next(actions.begin(), 1);
-
-		for (auto const &action : *nextBlock) {
+		auto nextBlock = std::next(actions.begin(), 1)->front();
+		for (auto const &action : nextBlock) {
 			auto actionInt = static_cast<int64_t>(action);
 			emit_signal("add_action", actionInt);
 		}

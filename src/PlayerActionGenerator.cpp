@@ -10,10 +10,10 @@ std::list<Action> PlayerActionGenerator::generate_player_action(std::list<Action
 	std::list<Action> playerActionsBloc;
 	std::list<ActionType>::iterator playerActionsBlocIt;
 	real_t actionIndex = 1;
-	for(playerActionsBlocIt=actions.begin(); playerActionsBlocIt != actions.end(); ++playerActionsBlocIt){
+	for (playerActionsBlocIt = actions.begin(); playerActionsBlocIt != actions.end(); ++playerActionsBlocIt) {
 		ActionType nextActionType;
 		real_t actionWidth;
-		if(std::next(playerActionsBlocIt, 1) == actions.end()){
+		if (std::next(playerActionsBlocIt, 1) == actions.end()) {
 			nextActionType = nextBlocActionType.front();
 			actionWidth = WIDTH / nextBlocActionType.size();
 		} else {
@@ -21,13 +21,13 @@ std::list<Action> PlayerActionGenerator::generate_player_action(std::list<Action
 			actionWidth = WIDTH / actions.size();
 		}
 
-		if(nextActionType != ActionType::RUN){
+		if (nextActionType != ActionType::RUN) {
 			switch (nextActionType) {
 				case ActionType::JUMP:
-					playerActionsBloc.push_front(Action{nextActionType, (actionWidth*actionIndex) - 120});
+					playerActionsBloc.push_front(Action{ nextActionType, (actionWidth * actionIndex) - 120 });
 					break;
 				case ActionType::JUMP_OVER:
-					playerActionsBloc.push_front(Action{nextActionType, (actionWidth*actionIndex)});
+					playerActionsBloc.push_front(Action{ nextActionType, (actionWidth * actionIndex) });
 					break;
 			}
 		}

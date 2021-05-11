@@ -713,5 +713,6 @@ add_executable(
         src/PlayerActionGenerator.h src/PlayerActionGenerator.cpp
         src/BlocSelector.h src/BlocSelector.cpp
         src/BlocThumb.h src/BlocThumb.cpp
+        src/ActionTypeGenerator.cpp src/ActionTypeGenerator.h
         src/BlocTextureGenerator.h src/BlocTextureGenerator.cpp
 )

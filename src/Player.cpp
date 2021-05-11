@@ -20,11 +20,10 @@ void Player::_ready() {
 }
 
 void Player::_physics_process(const real_t delta) {
-
 	if (!is_on_floor()) {
 		_motion.y += _gravity;
 	} else {
-		if(_current_action == ActionType::RUN) {
+		if (_current_action == ActionType::RUN) {
 			animation->play("run");
 			_motion.y = 2;
 			_motion.x = _speed;
@@ -36,8 +35,8 @@ void Player::_physics_process(const real_t delta) {
 		}
 	}
 
-	if(is_on_wall()){
-		if(idleTimer->is_stopped()){
+	if (is_on_wall()) {
+		if (idleTimer->is_stopped()) {
 			idleTimer->start();
 		}
 	} else {
