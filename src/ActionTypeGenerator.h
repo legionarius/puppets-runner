@@ -8,9 +8,9 @@
 #include "ActionType.h"
 
 #include <Godot.hpp>
+#include <algorithm>
 #include <array>
 #include <list>
-#include <sstream>
 
 namespace godot {
 class ActionTypeGenerator {
@@ -26,7 +26,7 @@ private:
 
 	std::list<ActionType> _generate_valid_bloc(size_t nbAction);
 
-	std::list<ActionType> _generate_wrong_bloc(std::list<ActionType> validBloc, size_t nbAction);
+	std::list<ActionType> _generate_wrong_bloc(std::list<ActionType> validBloc);
 
 	std::array<std::list<ActionType>, 3> _generate_blocs(size_t nbAction);
 	std::array<std::list<ActionType>, 3> _generate_starting_blocs(size_t nbAction);

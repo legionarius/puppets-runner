@@ -34,7 +34,7 @@ std::array<std::list<ActionType>, 3> ActionTypeGenerator::_generate_blocs(size_t
 
 	// Generate 2 wrong bloc
 	for (int a = 1; a < 3; a++) {
-		std::list<ActionType> wrongBloc = _generate_wrong_bloc(validBloc, nbAction);
+		std::list<ActionType> wrongBloc = _generate_wrong_bloc(validBloc);
 		blocs[a] = wrongBloc;
 	}
 
@@ -61,15 +61,15 @@ std::list<ActionType> ActionTypeGenerator::_generate_valid_bloc(size_t nbAction)
 	return actionTypes;
 }
 
-std::list<ActionType> ActionTypeGenerator::_generate_wrong_bloc(std::list<ActionType> validBloc, size_t nbAction) {
-	std::list<ActionType> actionTypes;
+std::list<ActionType> ActionTypeGenerator::_generate_wrong_bloc(std::list<ActionType> validBloc) {
+	std::list<ActionType> actionTypes = validBloc;
 
-	/*	for (auto const &actionType : validBloc) {
-        auto nextActionType = _generate_next_wrong_actiontype(actionType);
-        actionTypes.push_back(nextActionType);
-    }*/
+	for (auto actionTypeIt = actionTypes.begin(); actionTypeIt != actionTypes.end(); ++actionTypeIt) {
+		auto wrongActionType = _generate_next_wrong_actiontype(*actionTypeIt);
+		*actionTypeIt = wrongActionType;
+	}
 
-	return validBloc;
+	return actionTypes;
 }
 
 ActionType ActionTypeGenerator::_generate_next_valid_actiontype(ActionType lastActionType) {
@@ -88,17 +88,17 @@ ActionType ActionTypeGenerator::_generate_next_valid_actiontype(ActionType lastA
 	return action;
 }
 
-ActionType ActionTypeGenerator::_generate_next_wrong_actiontype(ActionType nextActionType) {
+ActionType ActionTypeGenerator::_generate_next_wrong_actiontype(ActionType actionType) {
 	ActionType action;
-	switch (nextActionType) {
+	switch (actionType) {
 		case ActionType::RUN:
-			action = ActionType::RUN;
+			action = ActionType(rand() % 3);
 			break;
 		case ActionType::JUMP:
-			action = ActionType::RUN;
+			action = ActionType::JUMP_OVER;
 			break;
 		case ActionType::JUMP_OVER:
-			action = ActionType::RUN;
+			action = ActionType::JUMP;
 			break;
 	}
 	return action;

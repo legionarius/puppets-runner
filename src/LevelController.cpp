@@ -80,6 +80,7 @@ void LevelController::load_next_blocks_in_selector() {
 
 	std::array<Bloc, 3> blocs;
 	std::array<std::list<ActionType>, 3> nextActionsArray = *std::next(actions.begin(), 1);
+
 	for (int i = 0; i < nextActionsArray.size(); i++) {
 		blocs[i] = blocGenerator.generate_compat_bloc(ActionType::RUN, nextActionsArray[i]);
 	}
