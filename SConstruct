@@ -42,18 +42,32 @@ if (
 
 # Define our options
 opts.Add(EnumVariable('target', "Compilation target", 'debug', ['d', 'debug', 'r', 'release']))
-opts.Add(EnumVariable('platform', "Compilation platform", '', ['', 'windows', 'x11', 'linux', 'osx', 'javascript']))
-opts.Add(EnumVariable('p', "Compilation target, alias for 'platform'", '', ['', 'windows', 'x11', 'linux', 'osx']))
+opts.Add(EnumVariable('platform', "Compilation platform", '', ['', 'windows', 'x11', 'linux', 'osx', 'javascript', 'android']))
+opts.Add(EnumVariable('p', "Compilation target, alias for 'platform'", '', ['', 'windows', 'x11', 'linux', 'osx', 'android']))
 opts.Add(BoolVariable('use_llvm', "Use the LLVM / Clang compiler", 'no'))
 opts.Add(PathVariable('target_path', 'The path where the lib is installed.', 'lib/'))
 opts.Add(PathVariable('target_name', 'The library name.', 'libgdnative', PathVariable.PathAccept))
 opts.Add(EnumVariable('bits', 'Target platform bits', '64' if is64 else '32', ('32', '64')))
+opts.Add(EnumVariable(
+    'android_arch',
+    'Target Android architecture',
+    'armv7',
+    ['armv7','arm64v8','x86','x86_64']
+))
+opts.Add(
+    'android_api_level',
+    'Target Android API level',
+    '18' if ARGUMENTS.get("android_arch", 'armv7') in ['armv7', 'x86'] else '21'
+)
+
 
 # Local dependency paths, adapt them to your setup
 if 'GODOT_CPP' in os.environ.keys():
     cpp_bindings_path = os.environ['GODOT_CPP']
 else:
     cpp_bindings_path = "godot-cpp/"
+    
+env["ANDROID_NDK_ROOT"] = os.environ.get("ANDROID_NDK_ROOT", None)
 
 godot_headers_path = os.path.join(cpp_bindings_path, "godot-headers/")
 cpp_library = "libgodot-cpp"
@@ -140,6 +154,73 @@ elif env['platform'] == "windows":
             '-static-libstdc++',
         ])
         
+elif env["platform"] == "android":
+    if host_platform == 'windows':
+        # Don't Clone the environment. Because otherwise, SCons will pick up msvc stuff.
+        env = Environment(ENV = os.environ, tools=["mingw"])
+        opts.Update(env)
+        #env = env.Clone(tools=['mingw'])
+
+        env["SPAWN"] = mySpawn
+
+    # Verify NDK root
+    if not 'ANDROID_NDK_ROOT' in env:
+        raise ValueError("To build for Android, ANDROID_NDK_ROOT must be defined. Please set ANDROID_NDK_ROOT to the root folder of your Android NDK installation.")
+
+    # Validate API level
+    api_level = int(env['android_api_level'])
+    if env['android_arch'] in ['x86_64', 'arm64v8'] and api_level < 21:
+        print("WARN: 64-bit Android architectures require an API level of at least 21; setting android_api_level=21")
+        env['android_api_level'] = '21'
+        api_level = 21
+
+    # Setup toolchain
+    toolchain = env['ANDROID_NDK_ROOT'] + "/toolchains/llvm/prebuilt/"
+    if host_platform == "windows":
+        toolchain += "windows"
+        import platform as pltfm
+        if pltfm.machine().endswith("64"):
+            toolchain += "-x86_64"
+    elif host_platform == "linux":
+        toolchain += "linux-x86_64"
+    elif host_platform == "osx":
+        toolchain += "darwin-x86_64"
+    env.PrependENVPath('PATH', toolchain + "/bin") # This does nothing half of the time, but we'll put it here anyways
+
+    # Get architecture info
+    arch_info_table = {
+        "armv7" : {
+            "march":"armv7-a", "target":"armv7a-linux-androideabi", "tool_path":"arm-linux-androideabi", "compiler_path":"armv7a-linux-androideabi",
+            "ccflags" : ['-mfpu=neon']
+            },
+        "arm64v8" : {
+            "march":"armv8-a", "target":"aarch64-linux-android", "tool_path":"aarch64-linux-android", "compiler_path":"aarch64-linux-android",
+            "ccflags" : []
+            },
+        "x86" : {
+            "march":"i686", "target":"i686-linux-android", "tool_path":"i686-linux-android", "compiler_path":"i686-linux-android",
+            "ccflags" : ['-mstackrealign']
+            },
+        "x86_64" : {"march":"x86-64", "target":"x86_64-linux-android", "tool_path":"x86_64-linux-android", "compiler_path":"x86_64-linux-android",
+            "ccflags" : []
+        }
+    }
+    arch_info = arch_info_table[env['android_arch']]
+
+    # Setup tools
+    env['CC'] = toolchain + "/bin/clang"
+    env['CXX'] = toolchain + "/bin/clang++"
+    env['AR'] = toolchain + "/bin/" + arch_info['tool_path'] + "-ar"
+    env['LD'] = toolchain + "/bin/" + arch_info['tool_path'] + "-ld"
+    env['LDFLAGS'] = toolchain + "/bin/" + arch_info['tool_path'] + "-ld"
+    
+    if env["android_arch"] == "arm64v8":
+        env['LINK'] = toolchain + "/bin/aarch64-linux-android21-clang++"
+    else:
+        env['LINK'] = toolchain + "/bin/armv7a-linux-androideabi21-clang++"
+    env.Append(CCFLAGS=['--target=' + arch_info['target'] + env['android_api_level'], '-march=' + arch_info['march'], '-std=c++17', '-fPIC'])#, '-fPIE', '-fno-addrsig', '-Oz'])
+    env.Append(CCFLAGS=arch_info['ccflags'])
+        
 elif env["platform"] == "javascript":
     env['target_path'] += 'wasm32/'
     env["ENV"] = os.environ
@@ -183,6 +264,12 @@ cpp_library_filename = "libgodot-cpp.{platform}.{target}{suffix}".format(
     suffix=godot_cpp_suffix
     )
 
+
+if 'android' in cpp_library_filename:
+    android_path = {"arm64v8": "arm64-v8a", "armv7": "armeabi-v7a"}
+    cpp_library_filename = "libgodot-cpp.android.debug." + env["android_arch"] + ".a"
+    env['target_path'] += android_path[env["android_arch"]] + "/"
+
 # make sure our binding library is properly includes
 env.Append(CPPPATH=['.', godot_headers_path, os.path.join(cpp_bindings_path, 'include/'), os.path.join(cpp_bindings_path, 'include/core/'), os.path.join(cpp_bindings_path, 'include/gen/')])
 env.Append(LIBPATH=[os.path.join(cpp_bindings_path, 'bin/')])
@@ -193,8 +280,7 @@ env.Append(LIBS=[env.File(os.path.join(cpp_bindings_path, "bin", cpp_library_fil
 env.Append(CPPPATH=['src/'])
 sources = Glob('src/*.cpp')
 
-library = env.SharedLibrary(target=env['target_path'] + env['target_name'] , source=sources)
-
+library = env.SharedLibrary(target=env['target_path'] + env['target_name'], source=sources)
 Default(library)
 
 # Generates help for the -h scons option.
