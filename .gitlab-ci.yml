@@ -11,7 +11,7 @@ stages:
   - deploy
 
 variables:
-  EXPORT_NAME: landlord
+  EXPORT_NAME: puppet_runner
   VERSION: $(git describe --tags)
 
 linux:
@@ -73,10 +73,27 @@ pages:
     paths:
       - public
     expire_in: 1 week
+    
+android:
+  stage: export
+  script:
+    - echo -n $KEYSTORE_FILE | base64 -d > /root/release.jks
+    - sed -i "/keystore\/release=\"\"/ c\keystore\/release=\"/root/release.jks\"" export_presets.cfg
+    - sed -i "/keystore\/release_password=\"\"/ c\keystore\/release_password=\"$KEYSTORE_PASSWORD\"" export_presets.cfg
+    - sed -i "/keystore\/release_user=\"\"/ c\keystore\/release_user=\"$KEYSTORE_ALIAS\"" export_presets.cfg
+    - scons platform=android target=release android_arch=arm64v8
+    - scons platform=android target=release 
+    - mkdir -v -p build/android
+    - godot -v --export "Android" build/android/$EXPORT_NAME.apk
+  artifacts:
+    name: $EXPORT_NAME-android
+    paths:
+      - build/android
+    expire_in: 2 days
 
 
 
-  # Itch.io Deploy
+# Itch.io Deploy
 itchio:linux:
   stage: deploy
   only:
@@ -103,3 +120,12 @@ itchio:macosx:
     - butler push ./build/mac $ITCHIO_USERNAME/$ITCHIO_GAME:mac --userversion=$CI_COMMIT_TAG
   dependencies:
     - mac
+
+itchio:android:
+  stage: deploy
+  only:
+    - /^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)$/
+  script:
+    - butler push ./build/android $ITCHIO_USERNAME/$ITCHIO_GAME:android --userversion=$CI_COMMIT_TAG
+  dependencies:
+    - android

@@ -267,7 +267,7 @@ cpp_library_filename = "libgodot-cpp.{platform}.{target}{suffix}".format(
 
 if 'android' in cpp_library_filename:
     android_path = {"arm64v8": "arm64-v8a", "armv7": "armeabi-v7a"}
-    cpp_library_filename = "libgodot-cpp.android.debug." + env["android_arch"] + ".a"
+    cpp_library_filename = "libgodot-cpp.android." + env["target"] + "." + env["android_arch"] + ".a"
     env['target_path'] += android_path[env["android_arch"]] + "/"
 
 # make sure our binding library is properly includes
