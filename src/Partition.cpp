@@ -11,8 +11,8 @@ void Partition::_init() {}
 
 void Partition::_ready() {
 	levelController = cast_to<LevelController>(get_tree()->get_root()->get_node("MainScene/Level"));
-	levelController->connect("add_action", this, "_addActionIcon");
-	levelController->connect("clear_actions", this, "_clearActionIcons");
+	levelController->connect(ADD_ACTION, this, "_addActionIcon");
+	levelController->connect(CLEAR_ACTION, this, "_clearActionIcons");
 }
 
 void Partition::_addActionIcon(int64_t action) {

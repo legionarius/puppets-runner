@@ -6,6 +6,7 @@
 #define GODOT_NATIVE_PLAYER_H
 
 #include "ActionType.h"
+#include "LevelConstants.h"
 #include "Signals.h"
 
 #include <AnimatedSprite.hpp>
@@ -13,8 +14,11 @@
 #include <Input.hpp>
 #include <InputEventKey.hpp>
 #include <InputMap.hpp>
-#include <KinematicBody2D.hpp>
+#include <TileMap.hpp>
 #include <Timer.hpp>
+#include <KinematicBody2D.hpp>
+#include <KinematicCollision2D.hpp>
+#include <Ref.hpp>
 #include <Vector2.hpp>
 #include <sstream>
 #include <vector>
@@ -43,6 +47,7 @@ public:
 
 	void set_current_action_type(ActionType actionType);
 	void _idle_time_exceed();
+	void _detect_player_walk_on_spike();
 };
 
 } // namespace godot

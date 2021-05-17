@@ -20,15 +20,15 @@
 #define OBSTACLE 3
 
 // Tiles identifiers
-#define DIRT 0
-#define PIKE 1
-#define GRASS 17
-#define GRASS_CORNER_R 3
+#define DIRT 2
+#define PIKE 8
+#define GRASS 3
+#define GRASS_CORNER_R 5
 #define GRASS_CORNER_L 4
 #define SMALL_GRASS_CORNER_R 6
 #define SMALL_GRASS_CORNER_L 7
-#define VERT_GRASS_R 25
-#define VERT_GRASS_L 19
+#define VERT_GRASS_R 11
+#define VERT_GRASS_L 10
 
 
 #endif //GODOT_NATIVE_LEVELCONSTANTS_H

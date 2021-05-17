@@ -20,6 +20,8 @@ void Player::_ready() {
 }
 
 void Player::_physics_process(const real_t delta) {
+	_detect_player_walk_on_spike();
+
 	if (!is_on_floor()) {
 		_motion.y += _gravity;
 	} else {
@@ -46,6 +48,20 @@ void Player::_physics_process(const real_t delta) {
 	move_and_slide(_motion, Vector2(0, -1));
 }
 
+void Player::_detect_player_walk_on_spike() {
+	int64_t nbCollision = get_slide_count();
+	for(size_t i = 0; i<nbCollision; i++){
+		Ref<KinematicCollision2D> collisions = get_slide_collision(i);
+		TileMap *tileMap = cast_to<TileMap>(collisions->get_collider());
+		if(tileMap != nullptr){
+			auto cell = tileMap->world_to_map(collisions->get_position() - collisions->get_normal());
+			if(tileMap->get_cellv(cell) == PIKE) {
+				emit_signal(PLAYER_IS_ON_SPIKE);
+			};
+		}
+	}
+}
+
 void Player::set_current_action_type(ActionType actionType) {
 	_current_action = actionType;
 }
@@ -63,4 +79,5 @@ void Player::_register_methods() {
 	register_property("speed", &Player::_speed, 200.f);
 	register_property("jump_speed", &Player::_jump_speed, 600.f);
 	register_signal<Player>(PLAYER_IS_BLOCKED);
+	register_signal<Player>(PLAYER_IS_ON_SPIKE);
 }

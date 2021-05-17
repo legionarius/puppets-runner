@@ -27,7 +27,7 @@ std::list<Action> PlayerActionGenerator::generate_player_action(std::list<Action
 					playerActionsBloc.push_front(Action{ nextActionType, (actionWidth * actionIndex) - 120 });
 					break;
 				case ActionType::JUMP_OVER:
-					playerActionsBloc.push_front(Action{ nextActionType, (actionWidth * actionIndex) });
+					playerActionsBloc.push_front(Action{ nextActionType, (actionWidth * actionIndex) - 20 });
 					break;
 			}
 		}

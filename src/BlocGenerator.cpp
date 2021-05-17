@@ -23,15 +23,12 @@ Bloc BlocGenerator::generate_compat_bloc(const ActionType lastAction, std::list<
 		actions.pop_front();
 		switch (currentAction) {
 			case ActionType::RUN:
-				Godot::print("Generating RUN chunk...");
 				addRunChunk(i, bloc);
 				break;
 			case ActionType::JUMP:
-				Godot::print("Generating JUMP chunk...");
 				addJumpChunk(i, bloc);
 				break;
 			case ActionType::JUMP_OVER:
-				Godot::print("Generating JUMP OVER chunk...");
 				addJumpOverChunk(i, bloc);
 				break;
 			default:
@@ -74,7 +71,6 @@ void BlocGenerator::addRunChunk(const int chunkIdx, Bloc &bloc) const {
 
 void BlocGenerator::addPadding(Bloc &bloc, unsigned long padding) const {
 	if (padding > 0) {
-		Godot::print("Add padding...");
 		for (int y = 0; y < ROWS; y++) {
 			for (int x = COLUMNS - padding; x < COLUMNS; x++) {
 				bloc[y][x] = bloc[y][x - 1];

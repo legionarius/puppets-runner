@@ -11,7 +11,7 @@ void LevelController::_init() {
 	blocGenerator = BlocGenerator();
 	actionTypeGenerator = ActionTypeGenerator();
 	actions = actionTypeGenerator.generate_actions(10, 3);
-	blocSelectedIndex = 1;
+	blocSelectedIndex = -1;
 }
 
 void LevelController::_ready() {
@@ -50,6 +50,7 @@ void LevelController::load_player() {
 	player->set_position(spawnPoint->get_position());
 	player->set_name("Player");
 	player->connect(PLAYER_IS_BLOCKED, this, "end_level");
+	player->connect(PLAYER_IS_ON_SPIKE, this, "end_level");
 	add_child(player);
 
 	playerController = cast_to<PlayerController>(get_node("PlayerController"));
@@ -59,12 +60,17 @@ void LevelController::load_player() {
 void LevelController::end_block() {
 	emit_signal(PLAYER_PROGRESS, static_cast<int>(PlayerProgress::END));
 	load_next_block_elements();
-	player->set_position(Vector2(spawnPoint->get_position().x, player->get_position().y));
+	player->set_position(Vector2(spawnPoint->get_position().x, player->get_position().y - SPAWN_PLAYER_ELEVATION));
 }
 
 void LevelController::load_next_block_tile() {
+	Bloc bloc;
 	map->clear();
-	auto bloc = _get_selected_block_tile();
+	if(nextActionsArray.front().empty()){
+		bloc = _generate_first_bloc();
+	} else {
+		bloc = _get_selected_block_tile();
+	}
 	emit_signal(NEXT_BLOC);
 	map->_load_bloc(bloc);
 }
@@ -75,11 +81,10 @@ void LevelController::load_next_block_action() {
 }
 
 void LevelController::load_next_blocks_in_selector() {
-	// TODO : Create function to generate a shuffled array
-	//  containing the good bloc & 2 bad blocs.
 
 	std::array<Bloc, 3> blocs;
-	std::array<std::list<ActionType>, 3> nextActionsArray = *std::next(actions.begin(), 1);
+	nextActionsArray = *std::next(actions.begin(), 1);
+	std::shuffle(nextActionsArray.begin(), nextActionsArray.end(), std::default_random_engine(rand()));
 
 	for (int i = 0; i < nextActionsArray.size(); i++) {
 		blocs[i] = blocGenerator.generate_compat_bloc(ActionType::RUN, nextActionsArray[i]);
@@ -90,13 +95,9 @@ void LevelController::load_next_blocks_in_selector() {
 }
 
 Bloc LevelController::_get_selected_block_tile() {
-	std::array<std::list<ActionType>, 3> nextActionsArray = actions.front();
 	Bloc nextBloc = { { 0 } };
 	if (blocSelectedIndex != -1) {
-		// Force correct selection to index 2
-		if (blocSelectedIndex == 1) {
-			nextBloc = blocGenerator.generate_compat_bloc(ActionType::RUN, nextActionsArray.front());
-		}
+		nextBloc = blocGenerator.generate_compat_bloc(ActionType::RUN, nextActionsArray[blocSelectedIndex-1]);
 	}
 	blocSelectedIndex = -1;
 	return nextBloc;
@@ -108,10 +109,14 @@ void LevelController::set_block_selected_index(int8_t m_block_selected_index) {
 }
 
 void LevelController::load_next_block_player_action() {
-	std::list<std::array<std::list<ActionType>, 3>>::iterator actionsIterator = actions.begin();
+	std::list<ActionsArray>::iterator actionsIterator = actions.begin();
 
 	std::list<Action> nextActions = playerActionGenerator.generate_player_action(actions.begin()->front(), std::next(actionsIterator, 1)->front());
 	playerController->fill_action_list(nextActions);
+}
+
+void LevelController::_exit_tree() {
+	blocSelector->queue_free();
 }
 
 void LevelController::_addActions() {
@@ -119,7 +124,7 @@ void LevelController::_addActions() {
 		auto nextBlock = std::next(actions.begin(), 1)->front();
 		for (auto const &action : nextBlock) {
 			auto actionInt = static_cast<int64_t>(action);
-			emit_signal("add_action", actionInt);
+			emit_signal(ADD_ACTION, actionInt);
 		}
 	}
 }
@@ -129,21 +134,26 @@ void LevelController::mid_block() {
 }
 
 void LevelController::_clearActions() {
-	emit_signal("clear_actions");
+	emit_signal(CLEAR_ACTION);
 }
 
 void LevelController::end_level() {
 	emit_signal(END_LEVEL);
 }
 
+Bloc LevelController::_generate_first_bloc() {
+	return blocGenerator.generate_compat_bloc(ActionType::RUN, actions.begin()->front());
+}
+
 void LevelController::_register_methods() {
 	register_method("_init", &LevelController::_init);
 	register_method("_ready", &LevelController::_ready);
+	register_method("_exit_tree", &LevelController::_exit_tree);
 	register_method("end_block", &LevelController::end_block);
 	register_method("mid_block", &LevelController::mid_block);
 	register_method("end_level", &LevelController::end_level);
-	register_signal<LevelController>("add_action", "action", GODOT_VARIANT_TYPE_INT);
-	register_signal<LevelController>("clear_actions");
+	register_signal<LevelController>(ADD_ACTION, "action", GODOT_VARIANT_TYPE_INT);
+	register_signal<LevelController>(CLEAR_ACTION);
 	register_signal<LevelController>(NO_BLOC);
 	register_signal<LevelController>(NEXT_BLOC);
 	register_signal<LevelController>(END_LEVEL);

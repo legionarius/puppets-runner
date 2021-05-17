@@ -28,10 +28,15 @@
 #include <Viewport.hpp>
 #include <iterator>
 #include <list>
+#include <algorithm>
+#include <random>
+
+#define SPAWN_PLAYER_ELEVATION 20
 
 namespace godot {
 
 using Bloc = std::array<std::array<uint8_t, COLUMNS>, ROWS>;
+using ActionsArray = std::array<std::list<ActionType>, 3>;
 
 class LevelController : public Node {
 	GODOT_CLASS(LevelController, Node);
@@ -52,6 +57,7 @@ class LevelController : public Node {
 	int8_t blocSelectedIndex;
 
 	std::list<std::array<std::list<ActionType>, 3>> actions;
+	ActionsArray nextActionsArray;
 
 	void _addActions();
 	void _clearActions();
@@ -61,6 +67,7 @@ public:
 	static void _register_methods();
 	void _init();
 	void _ready();
+	void _exit_tree();
 
 	void end_block();
 	void mid_block();
@@ -73,6 +80,7 @@ public:
 	void set_block_selected_index(int8_t m_block_selected_index);
 	void end_level();
 	void start();
+	Bloc _generate_first_bloc();
 };
 } // namespace godot
 

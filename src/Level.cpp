@@ -10,7 +10,6 @@ void Level::_init() {
 }
 
 void Level::_ready() {
-	//	_load_bloc(Bloc());
 }
 
 void Level::_register_methods() {

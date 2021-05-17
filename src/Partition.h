@@ -8,6 +8,7 @@
 #include "ActionIcon.h"
 #include "ActionType.h"
 #include "LevelController.h"
+#include "Signals.h"
 
 #include <Godot.hpp>
 #include <HBoxContainer.hpp>

@@ -28,14 +28,12 @@ void MainScene::_start() {
 
 void MainScene::_on_bloc_selected(int blocId) {
 	auto args = Array::make(blocId);
-	Godot::print(String("Bloc {0} selected").format(args));
 	levelController->set_block_selected_index(blocId);
 }
 
 void MainScene::_on_progress(int progressId) {
 	auto progress = static_cast<PlayerProgress>(progressId);
 	auto args = Array::make(progress);
-	Godot::print(String("Player progress is {0}").format(args));
 	if (progress == PlayerProgress::MIDDLE) {
 		blocSelector->show();
 	} else {

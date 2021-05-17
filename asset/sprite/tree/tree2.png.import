@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/slice30_30.png-da3ef6d19d59c7ddcb6c782aad3f8951.stex"
+path="res://.import/tree2.png-f1385b00fe15b380f6f58cf768cd9b79.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://asset/tilset/grass/slice30_30.png"
-dest_files=[ "res://.import/slice30_30.png-da3ef6d19d59c7ddcb6c782aad3f8951.stex" ]
+source_file="res://asset/sprite/tree/tree2.png"
+dest_files=[ "res://.import/tree2.png-f1385b00fe15b380f6f58cf768cd9b79.stex" ]
 
 [params]
 
