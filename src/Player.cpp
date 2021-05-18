@@ -50,12 +50,12 @@ void Player::_physics_process(const real_t delta) {
 
 void Player::_detect_player_walk_on_spike() {
 	int64_t nbCollision = get_slide_count();
-	for(size_t i = 0; i<nbCollision; i++){
+	for (size_t i = 0; i < nbCollision; i++) {
 		Ref<KinematicCollision2D> collisions = get_slide_collision(i);
 		TileMap *tileMap = cast_to<TileMap>(collisions->get_collider());
-		if(tileMap != nullptr){
+		if (tileMap != nullptr) {
 			auto cell = tileMap->world_to_map(collisions->get_position() - collisions->get_normal());
-			if(tileMap->get_cellv(cell) == PIKE) {
+			if (tileMap->get_cellv(cell) == PIKE) {
 				emit_signal(PLAYER_IS_ON_SPIKE);
 			};
 		}

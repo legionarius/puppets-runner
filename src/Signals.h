@@ -21,6 +21,6 @@
 #define END_LEVEL "end_level"
 #define ADD_ACTION "add_action"
 #define CLEAR_ACTION "clear_action"
-
+#define SET_LABEL_SCORE "set_label_score"
 
 #endif //GODOT_NATIVE_SIGNALS_H

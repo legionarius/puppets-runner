@@ -11,6 +11,7 @@
 #include "Partition.h"
 #include "Player.h"
 #include "PlayerController.h"
+#include "Score.h"
 #include "TitleScreen.h"
 
 extern "C" void GDN_EXPORT godot_gdnative_init(godot_gdnative_init_options *o) {
@@ -36,4 +37,5 @@ extern "C" void GDN_EXPORT godot_nativescript_init(void *handle) {
 	godot::register_class<godot::PlayerController>();
 	godot::register_class<godot::Partition>();
 	godot::register_class<godot::ActionIcon>();
+	godot::register_class<godot::Score>();
 }

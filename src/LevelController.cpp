@@ -12,6 +12,7 @@ void LevelController::_init() {
 	actionTypeGenerator = ActionTypeGenerator();
 	actions = actionTypeGenerator.generate_actions(10, 3);
 	blocSelectedIndex = -1;
+	score = 0;
 }
 
 void LevelController::_ready() {
@@ -38,6 +39,7 @@ void LevelController::load_next_block_elements() {
 		load_next_block_action();
 		load_next_blocks_in_selector();
 		actions.pop_front();
+		emit_signal(SET_LABEL_SCORE, score);
 	} else {
 		Godot::print("No more bloc to load");
 		emit_signal(NO_BLOC);
@@ -59,6 +61,7 @@ void LevelController::load_player() {
 
 void LevelController::end_block() {
 	emit_signal(PLAYER_PROGRESS, static_cast<int>(PlayerProgress::END));
+	score++;
 	load_next_block_elements();
 	player->set_position(Vector2(spawnPoint->get_position().x, player->get_position().y - SPAWN_PLAYER_ELEVATION));
 }
@@ -66,7 +69,7 @@ void LevelController::end_block() {
 void LevelController::load_next_block_tile() {
 	Bloc bloc;
 	map->clear();
-	if(nextActionsArray.front().empty()){
+	if (nextActionsArray.front().empty()) {
 		bloc = _generate_first_bloc();
 	} else {
 		bloc = _get_selected_block_tile();
@@ -81,7 +84,6 @@ void LevelController::load_next_block_action() {
 }
 
 void LevelController::load_next_blocks_in_selector() {
-
 	std::array<Bloc, 3> blocs;
 	nextActionsArray = *std::next(actions.begin(), 1);
 	std::shuffle(nextActionsArray.begin(), nextActionsArray.end(), std::default_random_engine(rand()));
@@ -97,7 +99,7 @@ void LevelController::load_next_blocks_in_selector() {
 Bloc LevelController::_get_selected_block_tile() {
 	Bloc nextBloc = { { 0 } };
 	if (blocSelectedIndex != -1) {
-		nextBloc = blocGenerator.generate_compat_bloc(ActionType::RUN, nextActionsArray[blocSelectedIndex-1]);
+		nextBloc = blocGenerator.generate_compat_bloc(ActionType::RUN, nextActionsArray[blocSelectedIndex - 1]);
 	}
 	blocSelectedIndex = -1;
 	return nextBloc;
@@ -158,4 +160,5 @@ void LevelController::_register_methods() {
 	register_signal<LevelController>(NEXT_BLOC);
 	register_signal<LevelController>(END_LEVEL);
 	register_signal<LevelController>(PLAYER_PROGRESS, "pos", GODOT_VARIANT_TYPE_INT);
+	register_signal<LevelController>(SET_LABEL_SCORE, "score", GODOT_VARIANT_TYPE_INT);
 }

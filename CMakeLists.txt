@@ -715,4 +715,5 @@ add_executable(
         src/BlocThumb.h src/BlocThumb.cpp
         src/ActionTypeGenerator.cpp src/ActionTypeGenerator.h
         src/BlocTextureGenerator.h src/BlocTextureGenerator.cpp
+        src/Score.cpp src/Score.h
 )

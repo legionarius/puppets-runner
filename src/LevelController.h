@@ -26,9 +26,9 @@
 #include <ResourceLoader.hpp>
 #include <TileMap.hpp>
 #include <Viewport.hpp>
+#include <algorithm>
 #include <iterator>
 #include <list>
-#include <algorithm>
 #include <random>
 
 #define SPAWN_PLAYER_ELEVATION 20
@@ -55,6 +55,7 @@ class LevelController : public Node {
 	Level *map;
 	BlocSelector *blocSelector;
 	int8_t blocSelectedIndex;
+	int64_t score;
 
 	std::list<std::array<std::list<ActionType>, 3>> actions;
 	ActionsArray nextActionsArray;

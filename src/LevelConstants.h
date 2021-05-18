@@ -30,5 +30,4 @@
 #define VERT_GRASS_R 11
 #define VERT_GRASS_L 10
 
-
 #endif //GODOT_NATIVE_LEVELCONSTANTS_H

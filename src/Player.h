@@ -14,11 +14,11 @@
 #include <Input.hpp>
 #include <InputEventKey.hpp>
 #include <InputMap.hpp>
-#include <TileMap.hpp>
-#include <Timer.hpp>
 #include <KinematicBody2D.hpp>
 #include <KinematicCollision2D.hpp>
 #include <Ref.hpp>
+#include <TileMap.hpp>
+#include <Timer.hpp>
 #include <Vector2.hpp>
 #include <sstream>
 #include <vector>
