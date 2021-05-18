@@ -15,12 +15,13 @@
 #include "PlayerController.h"
 #include "PlayerProgress.h"
 #include "Signals.h"
-
 #include "BlocSelector.h"
+
 #include <Area2D.hpp>
 #include <Godot.hpp>
 #include <Node.hpp>
 #include <PackedScene.hpp>
+#include <ParallaxBackground.hpp>
 #include <Position2D.hpp>
 #include <Ref.hpp>
 #include <ResourceLoader.hpp>
@@ -32,6 +33,7 @@
 #include <random>
 
 #define SPAWN_PLAYER_ELEVATION 20
+#define PARALLAX_SCROLL 200
 
 namespace godot {
 
@@ -44,6 +46,8 @@ class LevelController : public Node {
 	Area2D *endBlock;
 	Area2D *midBlock;
 	Area2D *voidBloc;
+	ParallaxBackground *parallax;
+	real_t scrollOffset;
 	Player *player;
 	PlayerController *playerController;
 	Position2D *spawnPoint;
@@ -68,6 +72,7 @@ public:
 	static void _register_methods();
 	void _init();
 	void _ready();
+	void _process(const real_t delta);
 	void _exit_tree();
 
 	void end_block();

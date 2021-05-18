@@ -12,10 +12,12 @@ void LevelController::_init() {
 	actionTypeGenerator = ActionTypeGenerator();
 	actions = actionTypeGenerator.generate_actions(10, 3);
 	blocSelectedIndex = -1;
+	scrollOffset = 0;
 	score = 0;
 }
 
 void LevelController::_ready() {
+	parallax = cast_to<ParallaxBackground>(get_node("CanvasLayer/ParallaxBackground"));
 	map = cast_to<Level>(get_node("TileMap"));
 	spawnPoint = cast_to<Position2D>(get_node("SpawnPoint"));
 	endBlock = cast_to<Area2D>(get_node("EndBlock"));
@@ -25,6 +27,11 @@ void LevelController::_ready() {
 	blocSelector = cast_to<BlocSelector>(get_parent()->get_node("BlocSelector"));
 	voidBloc = Object::cast_to<Area2D>(get_node("VoidBlock"));
 	voidBloc->connect(BODY_ENTERED, this, "end_level");
+}
+
+void LevelController::_process(const real_t delta) {
+	scrollOffset -= PARALLAX_SCROLL*delta;
+	parallax->set_scroll_offset(Vector2(scrollOffset, 0));
 }
 
 void LevelController::start() {
@@ -150,6 +157,7 @@ Bloc LevelController::_generate_first_bloc() {
 void LevelController::_register_methods() {
 	register_method("_init", &LevelController::_init);
 	register_method("_ready", &LevelController::_ready);
+	register_method("_process", &LevelController::_process);
 	register_method("_exit_tree", &LevelController::_exit_tree);
 	register_method("end_block", &LevelController::end_block);
 	register_method("mid_block", &LevelController::mid_block);

@@ -268,33 +268,35 @@ extents = Vector2( 761.039, 10 )
 [node name="Level" type="Node"]
 script = ExtResource( 2 )
 
-[node name="SkyBackground" type="TextureRect" parent="."]
-margin_right = 1280.0
-margin_bottom = 720.0
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="CanvasLayer"]
+
+[node name="SkyParallaxLayer" type="ParallaxLayer" parent="CanvasLayer/ParallaxBackground"]
+motion_scale = Vector2( 0.4, 1 )
+motion_mirroring = Vector2( 1920, 0 )
+
+[node name="SkyBackground" type="Sprite" parent="CanvasLayer/ParallaxBackground/SkyParallaxLayer"]
+position = Vector2( 959.165, 361.028 )
+scale = Vector2( 1.5002, 1 )
 texture = ExtResource( 8 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
-[node name="FloorBackground" type="TextureRect" parent="."]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = -1.54309
-margin_top = 40.4644
-margin_right = -1.54309
-margin_bottom = 40.4644
+[node name="FloorParallaxLayer" type="ParallaxLayer" parent="CanvasLayer/ParallaxBackground"]
+motion_scale = Vector2( 0.5, 1 )
+motion_mirroring = Vector2( 1920, 0 )
+
+[node name="FloorBackground" type="Sprite" parent="CanvasLayer/ParallaxBackground/FloorParallaxLayer"]
+position = Vector2( 958.928, 361.192 )
+scale = Vector2( 1.5, 1 )
 texture = ExtResource( 9 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
-[node name="Tree1" type="Sprite" parent="."]
-position = Vector2( 296.65, 233.082 )
-texture = ExtResource( 7 )
-
-[node name="Tree2" type="Sprite" parent="."]
+[node name="Tree2" type="Sprite" parent="CanvasLayer/ParallaxBackground/FloorParallaxLayer"]
 position = Vector2( 1095.5, 322.217 )
 texture = ExtResource( 6 )
+
+[node name="Tree1" type="Sprite" parent="CanvasLayer/ParallaxBackground/FloorParallaxLayer"]
+position = Vector2( 296.65, 233.082 )
+texture = ExtResource( 7 )
 
 [node name="SpawnPoint" type="Position2D" parent="."]
 position = Vector2( -45, 500 )
