@@ -10,6 +10,7 @@
 #include "Signals.h"
 
 #include <AnimatedSprite.hpp>
+#include <AnimationPlayer.hpp>
 #include <Godot.hpp>
 #include <Input.hpp>
 #include <InputEventKey.hpp>
@@ -36,6 +37,7 @@ class Player : public KinematicBody2D {
 
 	ActionType _current_action;
 	AnimatedSprite *animation;
+	AnimationPlayer *animationPlayer;
 	Timer *idleTimer;
 
 public:
@@ -48,6 +50,7 @@ public:
 	void set_current_action_type(ActionType actionType);
 	void _idle_time_exceed();
 	void _detect_player_walk_on_spike();
+	void _set_animation_death();
 };
 
 } // namespace godot

@@ -15,8 +15,10 @@ void Player::_init() {
 
 void Player::_ready() {
 	animation = cast_to<AnimatedSprite>(get_node("Animation"));
+	animationPlayer = cast_to<AnimationPlayer>(get_node("AnimationPlayer"));
 	idleTimer = cast_to<Timer>(get_node("IdleTimer"));
 	idleTimer->connect(TIMEOUT, this, "_idle_time_exceed");
+	animationPlayer->connect(ANIMATION_FINISHED, this, "_set_animation_death");
 }
 
 void Player::_physics_process(const real_t delta) {
@@ -39,6 +41,7 @@ void Player::_physics_process(const real_t delta) {
 
 	if (is_on_wall()) {
 		if (idleTimer->is_stopped()) {
+			animationPlayer->play("death_on_spike");
 			idleTimer->start();
 		}
 	} else {
@@ -56,10 +59,14 @@ void Player::_detect_player_walk_on_spike() {
 		if (tileMap != nullptr) {
 			auto cell = tileMap->world_to_map(collisions->get_position() - collisions->get_normal());
 			if (tileMap->get_cellv(cell) == PIKE) {
-				emit_signal(PLAYER_IS_ON_SPIKE);
+				animationPlayer->play("death_on_spike");
 			};
 		}
 	}
+}
+
+void Player::_set_animation_death() {
+	emit_signal(PLAYER_IS_ON_SPIKE);
 }
 
 void Player::set_current_action_type(ActionType actionType) {
@@ -67,6 +74,7 @@ void Player::set_current_action_type(ActionType actionType) {
 }
 
 void Player::_idle_time_exceed() {
+	animationPlayer->play("death_on_spike");
 	emit_signal(PLAYER_IS_BLOCKED);
 }
 
@@ -75,6 +83,7 @@ void Player::_register_methods() {
 	register_method("_ready", &Player::_ready);
 	register_method("_physics_process", &Player::_physics_process);
 	register_method("_idle_time_exceed", &Player::_idle_time_exceed);
+	register_method("_set_animation_death", &Player::_set_animation_death);
 	register_property("gravity", &Player::_gravity, 20.f);
 	register_property("speed", &Player::_speed, 200.f);
 	register_property("jump_speed", &Player::_jump_speed, 600.f);

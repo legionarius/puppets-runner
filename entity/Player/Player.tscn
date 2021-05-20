@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://asset/sprite/player/adventurer_fall.png" type="Texture" id=1]
 [ext_resource path="res://asset/sprite/player/adventurer_idle.png" type="Texture" id=2]
@@ -21,14 +21,14 @@ animations = [ {
 "name": "idle",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 1 ) ],
-"loop": true,
-"name": "fall",
-"speed": 5.0
-}, {
 "frames": [ ExtResource( 7 ) ],
 "loop": true,
 "name": "hurt",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 5 ) ],
+"loop": true,
+"name": "jump",
 "speed": 5.0
 }, {
 "frames": [ ExtResource( 6 ), ExtResource( 4 ) ],
@@ -36,14 +36,41 @@ animations = [ {
 "name": "run",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 5 ) ],
+"frames": [ ExtResource( 1 ) ],
 "loop": true,
-"name": "jump",
+"name": "fall",
 "speed": 5.0
 } ]
 
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 13.848, 20.2644 )
+
+[sub_resource type="Animation" id=3]
+resource_name = "death_on_spike"
+tracks/0/type = "value"
+tracks/0/path = NodePath("Collision:disabled")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Animation:animation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ "slide" ]
+}
 
 [node name="Player" type="KinematicBody2D"]
 collision_layer = 2
@@ -60,3 +87,6 @@ shape = SubResource( 2 )
 
 [node name="IdleTimer" type="Timer" parent="."]
 one_shot = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/death_on_spike = SubResource( 3 )
