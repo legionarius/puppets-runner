@@ -11,6 +11,7 @@
 #define VISIBILITY_CHANGED "visibility_changed"
 #define TIMEOUT "timeout"
 #define ANIMATION_FINISHED "animation_finished"
+#define ANIMATION_STARTED "animation_started"
 
 // Custom
 #define NO_BLOC "no_bloc"

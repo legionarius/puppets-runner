@@ -51,6 +51,7 @@ public:
 	void _idle_time_exceed();
 	void _detect_player_walk_on_spike();
 	void _set_animation_death();
+	void _set_position_on_death();
 };
 
 } // namespace godot

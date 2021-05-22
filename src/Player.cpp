@@ -19,6 +19,7 @@ void Player::_ready() {
 	idleTimer = cast_to<Timer>(get_node("IdleTimer"));
 	idleTimer->connect(TIMEOUT, this, "_idle_time_exceed");
 	animationPlayer->connect(ANIMATION_FINISHED, this, "_set_animation_death");
+	animationPlayer->connect(ANIMATION_STARTED, this, "_set_position_on_death");
 }
 
 void Player::_physics_process(const real_t delta) {
@@ -41,13 +42,12 @@ void Player::_physics_process(const real_t delta) {
 
 	if (is_on_wall()) {
 		if (idleTimer->is_stopped()) {
-			animationPlayer->play("death_on_spike");
 			idleTimer->start();
 		}
 	} else {
 		idleTimer->stop();
 	}
-
+	Godot::print(_motion);
 	move_and_slide(_motion, Vector2(0, -1));
 }
 
@@ -69,6 +69,11 @@ void Player::_set_animation_death() {
 	emit_signal(PLAYER_IS_ON_SPIKE);
 }
 
+void Player::_set_position_on_death() {
+	_speed = 10;
+	_motion.y = -300;
+}
+
 void Player::set_current_action_type(ActionType actionType) {
 	_current_action = actionType;
 }
@@ -84,6 +89,7 @@ void Player::_register_methods() {
 	register_method("_physics_process", &Player::_physics_process);
 	register_method("_idle_time_exceed", &Player::_idle_time_exceed);
 	register_method("_set_animation_death", &Player::_set_animation_death);
+	register_method("_set_position_on_death", &Player::_set_position_on_death);
 	register_property("gravity", &Player::_gravity, 20.f);
 	register_property("speed", &Player::_speed, 200.f);
 	register_property("jump_speed", &Player::_jump_speed, 600.f);

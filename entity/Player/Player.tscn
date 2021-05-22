@@ -21,14 +21,14 @@ animations = [ {
 "name": "idle",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 7 ) ],
-"loop": true,
-"name": "hurt",
-"speed": 5.0
-}, {
 "frames": [ ExtResource( 5 ) ],
 "loop": true,
 "name": "jump",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 1 ) ],
+"loop": true,
+"name": "fall",
 "speed": 5.0
 }, {
 "frames": [ ExtResource( 6 ), ExtResource( 4 ) ],
@@ -36,9 +36,9 @@ animations = [ {
 "name": "run",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 1 ) ],
+"frames": [ ExtResource( 7 ) ],
 "loop": true,
-"name": "fall",
+"name": "hurt",
 "speed": 5.0
 } ]
 
@@ -54,10 +54,10 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
+"times": PoolRealArray( 0.5, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
 "update": 1,
-"values": [ true ]
+"values": [ true, false ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath("Animation:animation")
@@ -73,12 +73,13 @@ tracks/1/keys = {
 }
 
 [node name="Player" type="KinematicBody2D"]
+position = Vector2( 0, 1 )
 collision_layer = 2
 script = ExtResource( 8 )
 
 [node name="Animation" type="AnimatedSprite" parent="."]
 frames = SubResource( 1 )
-animation = "hurt"
+animation = "slide"
 
 [node name="Collision" type="CollisionShape2D" parent="."]
 position = Vector2( 0.629974, 3.4801 )
