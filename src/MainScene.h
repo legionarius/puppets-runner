@@ -9,12 +9,14 @@
 #include <TextureButton.hpp>
 #include <Godot.hpp>
 #include <Node.hpp>
+#include <Label.hpp>
 #include <ResourceLoader.hpp>
 #include <SceneTree.hpp>
 #include <Viewport.hpp>
 
 #include "BlocSelector.h"
 #include "LevelController.h"
+#include "Score.h"
 
 namespace godot {
 

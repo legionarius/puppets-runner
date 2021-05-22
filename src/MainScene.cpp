@@ -42,11 +42,15 @@ void MainScene::_on_progress(int progressId) {
 }
 
 void MainScene::_end_level() {
+	Score *score = cast_to<Score>(levelController->get_node("Score"));
+	String scoreText = score->get_text();
 	levelController->queue_free();
 	Ref<PackedScene> restartScene = ResourceLoader::get_singleton()->load("entity/EndScreen/EndScreen.tscn");
 	Control *restartNode = cast_to<Control>(restartScene->instance());
 	add_child(restartNode);
 	TextureButton *button = cast_to<TextureButton>(restartNode->get_node("RestartButton"));
+	Label *scoreLabel = cast_to<Label>(restartNode->get_node("Score"));
+	scoreLabel->set_text(scoreText);
 	button->connect(PRESSED, this, "_restart");
 }
 
