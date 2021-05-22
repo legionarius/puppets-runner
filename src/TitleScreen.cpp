@@ -10,8 +10,8 @@ void TitleScreen::_init() {
 }
 
 void TitleScreen::_ready() {
-	Button *exitBtn = Object::cast_to<Button>(get_node("MainMenu/VBoxContainer/Exit"));
-	Button *startBtn = Object::cast_to<Button>(get_node("MainMenu/VBoxContainer/Start"));
+	TextureButton *exitBtn = Object::cast_to<TextureButton>(get_node("MainMenu/VBoxContainer/Exit"));
+	TextureButton *startBtn = Object::cast_to<TextureButton>(get_node("MainMenu/VBoxContainer/Start"));
 	exitBtn->connect("pressed", this, "_exit");
 	startBtn->connect("pressed", this, "_start");
 }
