@@ -46,7 +46,7 @@ void MainScene::_end_level() {
 	Ref<PackedScene> restartScene = ResourceLoader::get_singleton()->load("entity/EndScreen/EndScreen.tscn");
 	Control *restartNode = cast_to<Control>(restartScene->instance());
 	add_child(restartNode);
-	Button *button = cast_to<Button>(restartNode->get_node("RestartButton"));
+	TextureButton *button = cast_to<TextureButton>(restartNode->get_node("RestartButton"));
 	button->connect(PRESSED, this, "_restart");
 }
 

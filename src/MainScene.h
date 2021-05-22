@@ -6,6 +6,7 @@
 #define GODOT_NATIVE_MAINSCENE_H
 
 #include <Button.hpp>
+#include <TextureButton.hpp>
 #include <Godot.hpp>
 #include <Node.hpp>
 #include <ResourceLoader.hpp>

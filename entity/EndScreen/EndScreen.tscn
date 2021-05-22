@@ -1,11 +1,13 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=5 format=2]
 
-[ext_resource path="res://asset/font/Constantia.ttf" type="DynamicFontData" id=1]
+[ext_resource path="res://asset/texture/title_button.png" type="Texture" id=1]
+[ext_resource path="res://asset/font/Snowy Night.ttf" type="DynamicFontData" id=2]
+[ext_resource path="res://asset/texture/sky_background.png" type="Texture" id=3]
 
 [sub_resource type="DynamicFont" id=1]
-size = 30
+size = 33
 use_filter = true
-font_data = ExtResource( 1 )
+font_data = ExtResource( 2 )
 
 [node name="Control" type="Control"]
 anchor_right = 1.0
@@ -14,14 +16,35 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="RestartButton" type="Button" parent="."]
+[node name="TextureRect" type="TextureRect" parent="."]
+margin_right = 1280.0
+margin_bottom = 720.0
+texture = ExtResource( 3 )
+
+[node name="RestartButton" type="TextureButton" parent="."]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -100.0
-margin_top = -25.0
-margin_right = 100.0
-margin_bottom = 25.0
+margin_left = -155.0
+margin_top = -30.0
+margin_right = 155.0
+margin_bottom = 30.0
+mouse_default_cursor_shape = 2
+texture_normal = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="RestartButton"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -56.5
+margin_top = -22.0
+margin_right = 56.5
+margin_bottom = 22.0
 custom_fonts/font = SubResource( 1 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "Restart"
