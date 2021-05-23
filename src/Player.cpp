@@ -14,6 +14,7 @@ void Player::_init() {
 }
 
 void Player::_ready() {
+	jumpPlayer = cast_to<AudioStreamPlayer>(get_node("JumpSnd"));
 	animation = cast_to<AnimatedSprite>(get_node("Animation"));
 	idleTimer = cast_to<Timer>(get_node("IdleTimer"));
 	idleTimer->connect(TIMEOUT, this, "_idle_time_exceed");
@@ -31,6 +32,7 @@ void Player::_physics_process(const real_t delta) {
 			_motion.x = _speed;
 		} else {
 			animation->play("jump");
+			jumpPlayer->play();
 			_motion.y = -_jump_speed;
 			_motion.x = _speed;
 			_current_action = ActionType::RUN;

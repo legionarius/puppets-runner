@@ -10,6 +10,7 @@
 #include "Signals.h"
 
 #include <AnimatedSprite.hpp>
+#include <AudioStreamPlayer.hpp>
 #include <Godot.hpp>
 #include <Input.hpp>
 #include <InputEventKey.hpp>
@@ -37,6 +38,7 @@ class Player : public KinematicBody2D {
 	ActionType _current_action;
 	AnimatedSprite *animation;
 	Timer *idleTimer;
+	AudioStreamPlayer *jumpPlayer;
 
 public:
 	static void _register_methods();
