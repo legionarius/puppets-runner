@@ -43,7 +43,8 @@ void MainScene::_on_progress(int progressId) {
 
 void MainScene::_end_level() {
 	Score *score = cast_to<Score>(levelController->get_node("Score"));
-	String scoreText = score->get_text();
+	Label *scoreNodeLabel = cast_to<Label>(score->get_node("Label"));
+	String scoreText = scoreNodeLabel->get_text();
 	levelController->queue_free();
 	Ref<PackedScene> restartScene = ResourceLoader::get_singleton()->load("entity/EndScreen/EndScreen.tscn");
 	Control *restartNode = cast_to<Control>(restartScene->instance());
