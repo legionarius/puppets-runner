@@ -9,7 +9,6 @@
 #include "LevelConstants.h"
 #include "Signals.h"
 
-#include <AnimatedSprite.hpp>
 #include <AnimationPlayer.hpp>
 #include <AudioStreamPlayer.hpp>
 #include <Godot.hpp>
@@ -38,7 +37,6 @@ class Player : public KinematicBody2D {
 	bool _is_on_spike;
 
 	ActionType _current_action;
-	AnimatedSprite *animation;
 	AnimationPlayer *animationPlayer;
 	Timer *idleTimer;
 	AudioStreamPlayer *jumpPlayer;
