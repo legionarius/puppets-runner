@@ -1,11 +1,52 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://asset/sprite/wolf.png" type="Texture" id=1]
 [ext_resource path="res://asset/snd/wolf.wav" type="AudioStream" id=2]
 [ext_resource path="res://entity/Wolf/Wolf.gdns" type="Script" id=3]
+[ext_resource path="res://asset/snd/wolf_attack.ogg" type="AudioStream" id=4]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 51.1479, 32.0786 )
+
+[sub_resource type="Animation" id=3]
+resource_name = "attack"
+length = 3.0
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray(  ),
+"transitions": PoolRealArray(  ),
+"update": 0,
+"values": [  ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Sprite:rotation_degrees")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray(  ),
+"transitions": PoolRealArray(  ),
+"update": 0,
+"values": [  ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("AttackSnd:playing")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 2.9 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
 
 [sub_resource type="Animation" id=2]
 resource_name = "walk"
@@ -51,6 +92,11 @@ shape = SubResource( 1 )
 stream = ExtResource( 2 )
 volume_db = -20.0
 
+[node name="AttackSnd" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 4 )
+volume_db = -10.0
+
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 autoplay = "walk"
+anims/attack = SubResource( 3 )
 anims/walk = SubResource( 2 )
