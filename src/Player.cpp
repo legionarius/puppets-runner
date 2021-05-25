@@ -17,7 +17,7 @@ void Player::_init() {
 void Player::_ready() {
 	jumpPlayer = cast_to<AudioStreamPlayer>(get_node("JumpSnd"));
 	deathPlayerSound = cast_to<AudioStreamPlayer>(get_node("DeathSnd"));
-	animationPlayer = cast_to<AnimationPlayer>(get_node("AnimationPlayerOld"));
+	animationPlayer = cast_to<AnimationPlayer>(get_node("AnimationPlayer"));
 	idleTimer = cast_to<Timer>(get_node("IdleTimer"));
 	idleTimer->connect(TIMEOUT, this, "_idle_time_exceed");
 	animationPlayer->connect(ANIMATION_FINISHED, this, "_set_animation_death");
