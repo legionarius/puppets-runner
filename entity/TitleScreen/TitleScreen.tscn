@@ -4,7 +4,7 @@
 [ext_resource path="res://asset/texture/title_button.png" type="Texture" id=2]
 [ext_resource path="res://asset/texture/sky_background.png" type="Texture" id=3]
 [ext_resource path="res://asset/font/Snowy Night.ttf" type="DynamicFontData" id=4]
-[ext_resource path="res://asset/sprite/wolf.png" type="Texture" id=5]
+[ext_resource path="res://asset/sprite/wolf_title.png" type="Texture" id=5]
 [ext_resource path="res://asset/sprite/character_title.png" type="Texture" id=6]
 
 [sub_resource type="DynamicFont" id=1]

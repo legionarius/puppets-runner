@@ -16,6 +16,7 @@
 #include "PlayerController.h"
 #include "PlayerProgress.h"
 #include "Signals.h"
+#include "Wolf.h"
 
 #include <Area2D.hpp>
 #include <Godot.hpp>
@@ -53,6 +54,7 @@ class LevelController : public Node {
 	ParallaxBackground *parallax;
 	real_t scrollOffset;
 	Player *player;
+	Wolf *wolf;
 	PlayerController *playerController;
 	Position2D *spawnPoint;
 
@@ -87,6 +89,7 @@ public:
 	void load_next_block_action();
 	void load_next_blocks_in_selector();
 	void load_player();
+	void load_wolf();
 	void load_next_block_player_action();
 	void set_block_selected_index(int8_t m_block_selected_index);
 	void end_level();

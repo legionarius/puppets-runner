@@ -716,4 +716,5 @@ add_executable(
         src/ActionTypeGenerator.cpp src/ActionTypeGenerator.h
         src/BlocTextureGenerator.h src/BlocTextureGenerator.cpp
         src/Score.cpp src/Score.h
+        src/Wolf.cpp src/Wolf.h
 )

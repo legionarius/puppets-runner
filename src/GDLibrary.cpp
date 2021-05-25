@@ -13,6 +13,7 @@
 #include "PlayerController.h"
 #include "Score.h"
 #include "TitleScreen.h"
+#include "Wolf.h"
 
 extern "C" void GDN_EXPORT godot_gdnative_init(godot_gdnative_init_options *o) {
 	godot::Godot::gdnative_init(o);
@@ -38,4 +39,5 @@ extern "C" void GDN_EXPORT godot_nativescript_init(void *handle) {
 	godot::register_class<godot::Partition>();
 	godot::register_class<godot::ActionIcon>();
 	godot::register_class<godot::Score>();
+	godot::register_class<godot::Wolf>();
 }

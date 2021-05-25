@@ -50,6 +50,7 @@ void LevelController::_process(const real_t delta) {
 
 void LevelController::start() {
 	load_player();
+	load_wolf();
 	load_next_block_elements();
 }
 
@@ -65,6 +66,13 @@ void LevelController::load_next_block_elements() {
 		Godot::print("No more bloc to load");
 		emit_signal(NO_BLOC);
 	}
+}
+
+void LevelController::load_wolf() {
+	Ref<PackedScene> playerScene = ResourceLoader::get_singleton()->load("entity/Wolf/Wolf.tscn");
+	wolf = cast_to<Wolf>(playerScene->instance());
+	wolf->set_position(spawnPoint->get_position());
+	add_child(wolf);
 }
 
 void LevelController::load_player() {
