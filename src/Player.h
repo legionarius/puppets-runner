@@ -35,12 +35,14 @@ class Player : public KinematicBody2D {
 	real_t _speed;
 	real_t _jump_speed;
 	Vector2 _motion;
+	bool _is_on_spike;
 
 	ActionType _current_action;
 	AnimatedSprite *animation;
 	AnimationPlayer *animationPlayer;
 	Timer *idleTimer;
 	AudioStreamPlayer *jumpPlayer;
+	AudioStreamPlayer *deathPlayerSound;
 
 public:
 	static void _register_methods();
@@ -53,7 +55,6 @@ public:
 	void _idle_time_exceed();
 	void _detect_player_walk_on_spike();
 	void _set_animation_death();
-	void _set_position_on_death();
 };
 
 } // namespace godot
