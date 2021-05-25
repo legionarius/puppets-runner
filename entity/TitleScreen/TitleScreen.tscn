@@ -1,16 +1,101 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://entity/TitleScreen/TitleScreen.gdns" type="Script" id=1]
-[ext_resource path="res://asset/home.png" type="Texture" id=2]
-[ext_resource path="res://asset/font/Constantia.ttf" type="DynamicFontData" id=3]
+[ext_resource path="res://asset/texture/title_button.png" type="Texture" id=2]
+[ext_resource path="res://asset/texture/sky_background.png" type="Texture" id=3]
+[ext_resource path="res://asset/font/Snowy Night.ttf" type="DynamicFontData" id=4]
+[ext_resource path="res://asset/sprite/wolf.png" type="Texture" id=5]
+[ext_resource path="res://asset/sprite/character.png" type="Texture" id=6]
 
 [sub_resource type="DynamicFont" id=1]
-size = 30
+size = 52
 use_filter = true
-font_data = ExtResource( 3 )
+font_data = ExtResource( 4 )
 
 [sub_resource type="StyleBoxFlat" id=2]
 bg_color = Color( 0.6, 0.6, 0.6, 0 )
+
+[sub_resource type="DynamicFont" id=3]
+size = 37
+use_filter = true
+font_data = ExtResource( 4 )
+
+[sub_resource type="Animation" id=4]
+resource_name = "running"
+length = 10.0
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Wolf:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( -260, 605.333 ), Vector2( -206, 602.455 ), Vector2( -191.318, 602.455 ), Vector2( 9, 619.455 ), Vector2( 209, 619.455 ), Vector2( 409, 619.455 ), Vector2( 609, 616.627 ), Vector2( 809, 615.212 ), Vector2( 1009, 615.212 ), Vector2( 1209, 623.212 ), Vector2( 1409, 608.212 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Wolf:rotation_degrees")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ 0.0, 0.0, 8.7, -8.6, 10.0, -8.0, 18.1, -11.0, 15.0, -13.1 ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Character:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( -206, 543.591 ), Vector2( -60, 537.401 ), Vector2( 140, 531.401 ), Vector2( 340, 544.401 ), Vector2( 540, 549.401 ), Vector2( 740, 535.401 ), Vector2( 940, 545.573 ), Vector2( 1140, 562.158 ), Vector2( 1340, 562.158 ), Vector2( 1540, 562.158 ), Vector2( 1440, 549.78 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Character:rotation_degrees")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ 0.0, -17.3, 0.0, -26.0, 0.0, -26.0, 0.0, -26.0, -26.0, -13.0 ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("Wolf:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0, 10 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("Character:visible")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0, 10 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
 
 [node name="TitleScreen" type="Control"]
 anchor_right = 1.0
@@ -23,7 +108,7 @@ __meta__ = {
 [node name="TextureRect" type="TextureRect" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
-texture = ExtResource( 2 )
+texture = ExtResource( 3 )
 expand = true
 __meta__ = {
 "_edit_use_anchors_": false
@@ -32,18 +117,28 @@ __meta__ = {
 [node name="GameTitle" type="Label" parent="."]
 anchor_left = 0.5
 anchor_right = 0.5
-margin_left = -334.5
-margin_right = 334.5
+margin_left = -181.0
+margin_right = 181.0
 margin_bottom = 118.0
 custom_fonts/font = SubResource( 1 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
-text = "Antonov AN-225 x Bourane space shuttle"
+text = "Puppets Runner"
 align = 1
 valign = 1
 uppercase = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="Character" type="Sprite" parent="."]
+position = Vector2( -206, 543.591 )
+rotation = -0.226893
+texture = ExtResource( 6 )
+
+[node name="Wolf" type="Sprite" parent="."]
+position = Vector2( -260, 605.333 )
+rotation = -0.228638
+texture = ExtResource( 5 )
 
 [node name="MainMenu" type="Panel" parent="."]
 anchor_left = 0.5
@@ -60,24 +155,67 @@ __meta__ = {
 }
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MainMenu"]
-margin_left = 39.3213
-margin_top = 0.665161
-margin_right = 289.321
-margin_bottom = 120.665
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -203.0
+margin_top = -197.0
+margin_right = 107.0
+margin_bottom = 3.00003
+rect_scale = Vector2( 1.3, 1.3 )
 rect_clip_content = true
 alignment = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Start" type="Button" parent="MainMenu/VBoxContainer"]
-margin_top = 37.0
-margin_right = 249.0
-margin_bottom = 57.0
-text = "Start"
+[node name="Start" type="TextureButton" parent="MainMenu/VBoxContainer"]
+margin_top = 38.0
+margin_right = 310.0
+margin_bottom = 98.0
+mouse_default_cursor_shape = 2
+texture_normal = ExtResource( 2 )
 
-[node name="Exit" type="Button" parent="MainMenu/VBoxContainer"]
-margin_top = 61.0
-margin_right = 249.0
-margin_bottom = 81.0
+[node name="Label" type="Label" parent="MainMenu/VBoxContainer/Start"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -47.0
+margin_top = -24.5
+margin_right = 47.0
+margin_bottom = 24.5
+custom_fonts/font = SubResource( 3 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "Start"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Exit" type="TextureButton" parent="MainMenu/VBoxContainer"]
+margin_top = 102.0
+margin_right = 310.0
+margin_bottom = 162.0
+mouse_default_cursor_shape = 2
+texture_normal = ExtResource( 2 )
+
+[node name="Label" type="Label" parent="MainMenu/VBoxContainer/Exit"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -30.5
+margin_top = -24.5
+margin_right = 30.5
+margin_bottom = 24.5
+custom_fonts/font = SubResource( 3 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "Exit"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "running"
+anims/running = SubResource( 4 )

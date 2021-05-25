@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/wolf.wav-e21ed3f2c5a027b6b44d257a47dc86fb.sample"
+
+[deps]
+
+source_file="res://asset/snd/wolf.wav"
+dest_files=[ "res://.import/wolf.wav-e21ed3f2c5a027b6b44d257a47dc86fb.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

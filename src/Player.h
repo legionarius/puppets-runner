@@ -11,6 +11,7 @@
 
 #include <AnimatedSprite.hpp>
 #include <AnimationPlayer.hpp>
+#include <AudioStreamPlayer.hpp>
 #include <Godot.hpp>
 #include <Input.hpp>
 #include <InputEventKey.hpp>
@@ -39,6 +40,7 @@ class Player : public KinematicBody2D {
 	AnimatedSprite *animation;
 	AnimationPlayer *animationPlayer;
 	Timer *idleTimer;
+	AudioStreamPlayer *jumpPlayer;
 
 public:
 	static void _register_methods();

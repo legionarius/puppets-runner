@@ -10,12 +10,13 @@ void Score::_init() {
 }
 
 void Score::_ready() {
+	labelScore = cast_to<Label>(get_node("Label"));
 	levelController = cast_to<LevelController>(get_tree()->get_root()->get_node("MainScene/Level"));
 	levelController->connect(SET_LABEL_SCORE, this, "_set_score_label");
 }
 
 void Score::_set_score_label(int64_t score) {
-	set_text(String("SCORE:  " + String::num_int64(score)));
+	labelScore->set_text(String("SCORE:  " + String::num_int64(score)));
 }
 
 void Score::_register_methods() {

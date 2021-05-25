@@ -4,9 +4,9 @@
 
 #include "ActionIcon.h"
 
-#define RUN_TEXTURE "asset/sprite/player/adventurer_walk1.png"
-#define JUMP_TEXTURE "asset/sprite/player/adventurer_jump.png"
-#define JUMP_OVER_TEXTURE "asset/sprite/player/adventurer_slide.png"
+#define RUN_TEXTURE "asset/icons/run_1.png"
+#define JUMP_TEXTURE "asset/icons/jump_1.png"
+#define JUMP_OVER_TEXTURE "asset/icons/jump_over_1.png"
 
 using namespace godot;
 

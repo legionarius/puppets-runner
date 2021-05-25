@@ -10,13 +10,15 @@
 
 #include <Godot.hpp>
 #include <Label.hpp>
+#include <TextureRect.hpp>
 
 namespace godot {
-class Score : public Label {
-	GODOT_CLASS(Score, Label);
+class Score : public TextureRect {
+	GODOT_CLASS(Score, TextureRect);
 
 private:
 	LevelController *levelController;
+	Label *labelScore;
 
 public:
 	static void _register_methods();

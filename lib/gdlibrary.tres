@@ -1,10 +1,12 @@
 [gd_resource type="GDNativeLibrary" format=2]
 
 [resource]
+entry/HTML5.wasm32 = "res://lib/wasm32/libgdnative.wasm"
 entry/Android.armeabi-v7a = "res://lib/armeabi-v7a/libgdnative.so"
 entry/Android.arm64-v8a = "res://lib/arm64-v8a/libgdnative.so"
 entry/Windows.64 = "res://lib/win64/libgdnative.so"
 entry/X11.64 = "res://lib/x11/libgdnative.so"
+dependency/HTML5.wasm32 = [  ]
 dependency/Android.armeabi-v7a = [  ]
 dependency/Android.arm64-v8a = [  ]
 dependency/Windows.64 = [  ]

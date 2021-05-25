@@ -9,11 +9,25 @@ using namespace godot;
 void LevelController::_init() {
 	playerActionGenerator = PlayerActionGenerator();
 	blocGenerator = BlocGenerator();
-	actionTypeGenerator = ActionTypeGenerator();
-	actions = actionTypeGenerator.generate_actions(10, 3);
+	actionTypeGenerator = new ActionTypeGenerator();
 	blocSelectedIndex = -1;
 	scrollOffset = 0;
 	score = 0;
+	load_action_type();
+}
+
+LevelController::~LevelController() {
+	delete actionTypeGenerator;
+}
+
+void LevelController::load_action_type() {
+	actions.push_back(actionTypeGenerator->generate_starting_actions());
+	std::list<real_t> blocLength = { NB_BLOC_LENGTH_3, NB_BLOC_LENGTH_4, NB_BLOC_LENGTH_5 };
+	for (size_t i = 0; i < blocLength.size(); ++i) {
+		auto blocList = actionTypeGenerator->generate_actions(blocLength.front(), i + 3);
+		actions.insert(actions.end(), blocList.begin(), blocList.end());
+		blocLength.pop_front();
+	}
 }
 
 void LevelController::_ready() {
@@ -30,7 +44,7 @@ void LevelController::_ready() {
 }
 
 void LevelController::_process(const real_t delta) {
-	scrollOffset -= PARALLAX_SCROLL*delta;
+	scrollOffset -= PARALLAX_SCROLL * delta;
 	parallax->set_scroll_offset(Vector2(scrollOffset, 0));
 }
 

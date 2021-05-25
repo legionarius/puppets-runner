@@ -10,7 +10,7 @@ ImageTexture *BlocTextureGenerator::_generate(const Bloc bloc) {
 	auto texture = ImageTexture::_new();
 	image = Image::_new();
 	image->create(256, 144, false, Image::FORMAT_RGBA8);
-	image->fill(Color(0, 0, 0, 1));
+	image->fill(Color(0.1, 0.08, 0.08, 1));
 	image->lock();
 	for (int y = 0; y < ROWS; y++) {
 		for (int x = 0; x < COLUMNS; x++) {

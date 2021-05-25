@@ -9,13 +9,13 @@
 #include "ActionType.h"
 #include "ActionTypeGenerator.h"
 #include "BlocGenerator.h"
+#include "BlocSelector.h"
 #include "Level.h"
 #include "Player.h"
 #include "PlayerActionGenerator.h"
 #include "PlayerController.h"
 #include "PlayerProgress.h"
 #include "Signals.h"
-#include "BlocSelector.h"
 
 #include <Area2D.hpp>
 #include <Godot.hpp>
@@ -34,6 +34,10 @@
 
 #define SPAWN_PLAYER_ELEVATION 20
 #define PARALLAX_SCROLL 200
+
+#define NB_BLOC_LENGTH_3 3
+#define NB_BLOC_LENGTH_4 4
+#define NB_BLOC_LENGTH_5 300
 
 namespace godot {
 
@@ -54,7 +58,7 @@ class LevelController : public Node {
 
 	PlayerActionGenerator playerActionGenerator;
 	BlocGenerator blocGenerator;
-	ActionTypeGenerator actionTypeGenerator;
+	ActionTypeGenerator *actionTypeGenerator;
 
 	Level *map;
 	BlocSelector *blocSelector;
@@ -77,6 +81,7 @@ public:
 
 	void end_block();
 	void mid_block();
+	void load_action_type();
 	void load_next_block_elements();
 	void load_next_block_tile();
 	void load_next_block_action();
@@ -87,6 +92,8 @@ public:
 	void end_level();
 	void start();
 	Bloc _generate_first_bloc();
+
+	~LevelController();
 };
 } // namespace godot
 

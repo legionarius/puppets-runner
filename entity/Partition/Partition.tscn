@@ -5,7 +5,12 @@
 [node name="Partition" type="HBoxContainer"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+margin_right = 2988.0
 margin_bottom = -600.0
+rect_scale = Vector2( 0.3, 0.3 )
 custom_constants/separation = 40
 alignment = 1
 script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}

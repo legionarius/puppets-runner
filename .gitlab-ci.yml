@@ -11,7 +11,7 @@ stages:
   - deploy
 
 variables:
-  EXPORT_NAME: puppet_runner
+  EXPORT_NAME: puppets_runner
   VERSION: $(git describe --tags)
 
 linux:
