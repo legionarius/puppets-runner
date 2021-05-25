@@ -53,6 +53,6 @@ void BlocSelector::_set_blocs(std::array<Bloc, 3> blocs) {
 	for (int i = 0; i < size; i++) {
 		auto button = cast_to<BlocThumb>(choiceContainer->get_child(i));
 		auto texture = textureGenerator._generate(blocs[i]);
-		button->set_normal_texture(texture);
+		button->get_texture()->set_texture(texture);
 	}
 }

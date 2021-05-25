@@ -14,7 +14,7 @@ _global_script_class_icons={
 
 [application]
 
-config/name="Core mechanic jam"
+config/name="Puppets Runner"
 run/main_scene="res://entity/TitleScreen/TitleScreen.tscn"
 config/icon="res://icon.png"
 

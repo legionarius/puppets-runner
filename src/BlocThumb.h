@@ -5,9 +5,11 @@
 #ifndef GODOT_NATIVE_BLOCTHUMB_H
 #define GODOT_NATIVE_BLOCTHUMB_H
 
-#include <ColorRect.hpp>
+#include <CanvasModulate.hpp>
 #include <Godot.hpp>
+#include <ShaderMaterial.hpp>
 #include <TextureButton.hpp>
+#include <TextureRect.hpp>
 
 #include "Signals.h"
 
@@ -16,7 +18,8 @@ namespace godot {
 class BlocThumb : public TextureButton {
 	GODOT_CLASS(BlocThumb, TextureButton);
 
-	ColorRect *selectedTexture;
+	CanvasModulate *selectedTexture;
+	TextureRect *texture;
 
 public:
 	static void _register_methods();
@@ -24,6 +27,8 @@ public:
 	void _ready();
 	void _on_selected();
 	void _reset_selected();
+	void set_disabled(const bool disabled);
+	TextureRect *get_texture();
 };
 } // namespace godot
 
