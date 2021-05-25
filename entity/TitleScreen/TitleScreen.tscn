@@ -5,7 +5,7 @@
 [ext_resource path="res://asset/texture/sky_background.png" type="Texture" id=3]
 [ext_resource path="res://asset/font/Snowy Night.ttf" type="DynamicFontData" id=4]
 [ext_resource path="res://asset/sprite/wolf.png" type="Texture" id=5]
-[ext_resource path="res://asset/sprite/character.png" type="Texture" id=6]
+[ext_resource path="res://asset/sprite/character_title.png" type="Texture" id=6]
 
 [sub_resource type="DynamicFont" id=1]
 size = 52
@@ -136,8 +136,7 @@ rotation = -0.226893
 texture = ExtResource( 6 )
 
 [node name="Wolf" type="Sprite" parent="."]
-position = Vector2( -260, 605.333 )
-rotation = -0.228638
+position = Vector2( -201.206, 602.455 )
 texture = ExtResource( 5 )
 
 [node name="MainMenu" type="Panel" parent="."]

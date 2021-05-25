@@ -36,3 +36,6 @@ compile for a different platform from your host by passing **-t (windows || osx)
 
 	- [C++ Core Guidelines](https://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines)
 
+# Credit
+
+[hand](https://www.freepik.com/pch-vector)
