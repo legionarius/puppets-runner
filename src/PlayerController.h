@@ -7,14 +7,14 @@
 
 #include "Action.h"
 #include "Player.h"
+#include "Wolf.h"
 
 #include <Godot.hpp>
 #include <Node.hpp>
 #include <SceneTree.hpp>
 #include <Viewport.hpp>
-#include <sstream>
 #include <list>
-
+#include <sstream>
 
 namespace godot {
 
@@ -22,6 +22,7 @@ class PlayerController : public Node {
 	GODOT_CLASS(PlayerController, Node);
 
 	Player *player;
+	Wolf *wolf;
 
 	std::list<Action> _actions;
 
@@ -34,9 +35,8 @@ public:
 
 	void connect_player();
 	void fill_action_list(std::list<Action> action_list);
-
 };
 
-}
+} // namespace godot
 
 #endif //GODOT_NATIVE_PLAYERCONTROLLER_H

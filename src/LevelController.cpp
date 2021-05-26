@@ -41,6 +41,14 @@ void LevelController::_ready() {
 	blocSelector = cast_to<BlocSelector>(get_parent()->get_node("BlocSelector"));
 	voidBloc = Object::cast_to<Area2D>(get_node("VoidBlock"));
 	voidBloc->connect(BODY_ENTERED, this, "end_level");
+	spawnTimer = cast_to<Timer>(get_node("SpawnTimer"));
+	spawnTimer->connect(TIMEOUT, this, "_set_wolf_spawn");
+}
+
+void LevelController::_set_wolf_spawn() {
+	spawnTimer->stop();
+	load_wolf();
+	wolf->set_position(Vector2(spawnPoint->get_position().x, player->get_position().y - SPAWN_PLAYER_ELEVATION));
 }
 
 void LevelController::_process(const real_t delta) {
@@ -50,7 +58,6 @@ void LevelController::_process(const real_t delta) {
 
 void LevelController::start() {
 	load_player();
-	load_wolf();
 	load_next_block_elements();
 }
 
@@ -69,8 +76,8 @@ void LevelController::load_next_block_elements() {
 }
 
 void LevelController::load_wolf() {
-	Ref<PackedScene> playerScene = ResourceLoader::get_singleton()->load("entity/Wolf/Wolf.tscn");
-	wolf = cast_to<Wolf>(playerScene->instance());
+	Ref<PackedScene> wolfScene = ResourceLoader::get_singleton()->load("entity/Wolf/Wolf.tscn");
+	wolf = cast_to<Wolf>(wolfScene->instance());
 	wolf->set_position(spawnPoint->get_position());
 	add_child(wolf);
 }
@@ -92,7 +99,11 @@ void LevelController::end_block() {
 	emit_signal(PLAYER_PROGRESS, static_cast<int>(PlayerProgress::END));
 	score++;
 	load_next_block_elements();
+	if (wolf != nullptr) {
+		wolf->free();
+	}
 	player->set_position(Vector2(spawnPoint->get_position().x, player->get_position().y - SPAWN_PLAYER_ELEVATION));
+	spawnTimer->start();
 }
 
 void LevelController::load_next_block_tile() {
@@ -184,6 +195,7 @@ void LevelController::_register_methods() {
 	register_method("end_block", &LevelController::end_block);
 	register_method("mid_block", &LevelController::mid_block);
 	register_method("end_level", &LevelController::end_level);
+	register_method("_set_wolf_spawn", &LevelController::_set_wolf_spawn);
 	register_signal<LevelController>(ADD_ACTION, "action", GODOT_VARIANT_TYPE_INT);
 	register_signal<LevelController>(CLEAR_ACTION);
 	register_signal<LevelController>(NO_BLOC);

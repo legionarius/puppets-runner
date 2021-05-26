@@ -15,6 +15,7 @@ void Player::_init() {
 
 void Player::_ready() {
 	jumpPlayer = cast_to<AudioStreamPlayer>(get_node("JumpSnd"));
+	playerAnimation = cast_to<AnimationPlayer>(get_node("AnimationPlayer"));
 	idleTimer = cast_to<Timer>(get_node("IdleTimer"));
 	idleTimer->connect(TIMEOUT, this, "_idle_time_exceed");
 }
@@ -38,6 +39,9 @@ void Player::_physics_process(const real_t delta) {
 
 	if (is_on_wall()) {
 		if (idleTimer->is_stopped()) {
+			if (idleTimer->get_time_left() < 1) {
+				playerAnimation->play("death");
+			}
 			idleTimer->start();
 		}
 	} else {

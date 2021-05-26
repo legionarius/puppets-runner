@@ -7,6 +7,7 @@
 
 #include "ActionType.h"
 #include "LevelConstants.h"
+#include "Player.h"
 #include "Signals.h"
 
 #include <AnimationPlayer.hpp>
@@ -29,12 +30,16 @@ class Wolf : public KinematicBody2D {
 	ActionType _current_action;
 	AnimationPlayer *wolfAnimation;
 	AudioStreamPlayer *wolfAudio;
+	AnimationPlayer *playerAnimation;
+
+	void _random_bark();
 
 public:
 	static void _register_methods();
 	void _init();
 	void _ready();
 	void _physics_process(const real_t delta);
+	void _attack_player();
 };
 
 } // namespace godot

@@ -9,6 +9,7 @@
 #include "LevelConstants.h"
 #include "Signals.h"
 
+#include <AnimationPlayer.hpp>
 #include <AudioStreamPlayer.hpp>
 #include <Godot.hpp>
 #include <Input.hpp>
@@ -37,6 +38,7 @@ class Player : public KinematicBody2D {
 	ActionType _current_action;
 	Timer *idleTimer;
 	AudioStreamPlayer *jumpPlayer;
+	AnimationPlayer *playerAnimation;
 
 public:
 	static void _register_methods();

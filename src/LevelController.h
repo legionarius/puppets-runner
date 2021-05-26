@@ -27,6 +27,7 @@
 #include <Ref.hpp>
 #include <ResourceLoader.hpp>
 #include <TileMap.hpp>
+#include <Timer.hpp>
 #include <Viewport.hpp>
 #include <algorithm>
 #include <iterator>
@@ -67,6 +68,8 @@ class LevelController : public Node {
 	int8_t blocSelectedIndex;
 	int64_t score;
 
+	Timer *spawnTimer;
+
 	std::list<std::array<std::list<ActionType>, 3>> actions;
 	ActionsArray nextActionsArray;
 
@@ -94,6 +97,7 @@ public:
 	void set_block_selected_index(int8_t m_block_selected_index);
 	void end_level();
 	void start();
+	void _set_wolf_spawn();
 	Bloc _generate_first_bloc();
 
 	~LevelController();

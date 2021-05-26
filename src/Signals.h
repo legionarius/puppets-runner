@@ -10,6 +10,7 @@
 #define PRESSED "pressed"
 #define VISIBILITY_CHANGED "visibility_changed"
 #define TIMEOUT "timeout"
+#define ANIMATION_STARTED "animation_started"
 
 // Custom
 #define NO_BLOC "no_bloc"
