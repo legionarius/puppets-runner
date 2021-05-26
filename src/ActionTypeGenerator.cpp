@@ -43,7 +43,7 @@ std::list<ActionType> ActionTypeGenerator::_generate_valid_bloc(size_t nbAction)
 	std::list<ActionType> actionTypes;
 
 	for (int i = 0; i < nbAction; i++) {
-		lastActionType = _generate_next_valid_actiontype(lastActionType);
+		lastActionType = _generate_next_valid_actiontype(lastActionType, nbAction);
 		actionTypes.push_back(lastActionType);
 	}
 	return actionTypes;
@@ -59,15 +59,18 @@ std::list<ActionType> ActionTypeGenerator::_generate_bad_bloc(std::list<ActionTy
 	return bloc;
 }
 
-ActionType ActionTypeGenerator::_generate_next_valid_actiontype(ActionType lastActionType) {
+ActionType ActionTypeGenerator::_generate_next_valid_actiontype(ActionType lastActionType, int64_t nbActionInBloc) {
 	ActionType action;
 	// Exclude JUMP ActionType
 	int actionTypeChoices[2] = { 0, 2 };
 
 	// Prevent succession of JUMP generation
-	if (lastActionType == ActionType::JUMP) {
+	if(nbActionInBloc >= 5 && (lastActionType == ActionType::JUMP || lastActionType == ActionType::JUMP_OVER)){
 		action = ActionType(actionTypeChoices[0]);
-	} else {
+	}
+	else if (lastActionType == ActionType::JUMP) {
+		action = ActionType(actionTypeChoices[0]);
+	}else {
 		action = ActionType(rng->randi_range(0, 2));
 	}
 

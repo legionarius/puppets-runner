@@ -73,7 +73,12 @@ void BlocGenerator::addPadding(Bloc &bloc, unsigned long padding) const {
 	if (padding > 0) {
 		for (int y = 0; y < ROWS; y++) {
 			for (int x = COLUMNS - padding; x < COLUMNS; x++) {
-				bloc[y][x] = bloc[y][x - 1];
+				if(bloc[y][x - 1] == OBSTACLE){
+					bloc[y][x] = FLOOR;
+				}
+				else {
+					bloc[y][x] = bloc[y][x - 1];
+				}
 			}
 		}
 	}

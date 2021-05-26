@@ -35,8 +35,8 @@
 #define SPAWN_PLAYER_ELEVATION 20
 #define PARALLAX_SCROLL 200
 
-#define NB_BLOC_LENGTH_3 3
-#define NB_BLOC_LENGTH_4 4
+#define NB_BLOC_LENGTH_3 10
+#define NB_BLOC_LENGTH_4 20
 #define NB_BLOC_LENGTH_5 300
 
 namespace godot {
