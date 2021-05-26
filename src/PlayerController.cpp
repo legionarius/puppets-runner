@@ -14,7 +14,7 @@ void PlayerController::_ready() {
 
 void PlayerController::_process(const real_t delta) {
 	if(!_actions.empty()){
-		if (player->get_position().x > _actions.back().trigger_position){
+		if (player->get_position().x > _actions.back().trigger_position && (player->get_position().x - _actions.back().trigger_position < 10)){
 			player->set_current_action_type(_actions.back().type);
 			_actions.pop_back();
 		}
