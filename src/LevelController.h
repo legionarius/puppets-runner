@@ -68,8 +68,6 @@ class LevelController : public Node {
 	int8_t blocSelectedIndex;
 	int64_t score;
 
-	Timer *spawnTimer;
-
 	std::list<std::array<std::list<ActionType>, 3>> actions;
 	ActionsArray nextActionsArray;
 

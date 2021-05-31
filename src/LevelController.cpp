@@ -41,14 +41,19 @@ void LevelController::_ready() {
 	blocSelector = cast_to<BlocSelector>(get_parent()->get_node("BlocSelector"));
 	voidBloc = Object::cast_to<Area2D>(get_node("VoidBlock"));
 	voidBloc->connect(BODY_ENTERED, this, "end_level");
-	spawnTimer = cast_to<Timer>(get_node("SpawnTimer"));
-	spawnTimer->connect(TIMEOUT, this, "_set_wolf_spawn");
 }
 
 void LevelController::_set_wolf_spawn() {
-	spawnTimer->stop();
 	load_wolf();
 	wolf->set_position(Vector2(spawnPoint->get_position().x, player->get_position().y - SPAWN_PLAYER_ELEVATION));
+}
+
+void LevelController::load_wolf() {
+	Ref<PackedScene> wolfScene = ResourceLoader::get_singleton()->load("entity/Wolf/Wolf.tscn");
+	wolf = cast_to<Wolf>(wolfScene->instance());
+	wolf->connect(PLAYER_IS_BLOCKED, this, "end_level");
+	wolf->set_position(spawnPoint->get_position());
+	add_child(wolf);
 }
 
 void LevelController::_process(const real_t delta) {
@@ -75,20 +80,13 @@ void LevelController::load_next_block_elements() {
 	}
 }
 
-void LevelController::load_wolf() {
-	Ref<PackedScene> wolfScene = ResourceLoader::get_singleton()->load("entity/Wolf/Wolf.tscn");
-	wolf = cast_to<Wolf>(wolfScene->instance());
-	wolf->set_position(spawnPoint->get_position());
-	add_child(wolf);
-}
-
 void LevelController::load_player() {
 	Ref<PackedScene> playerScene = ResourceLoader::get_singleton()->load("entity/Player/Player.tscn");
 	player = cast_to<Player>(playerScene->instance());
 	player->set_position(spawnPoint->get_position());
 	player->set_name("Player");
-	player->connect(PLAYER_IS_BLOCKED, this, "end_level");
 	player->connect(PLAYER_IS_ON_SPIKE, this, "end_level");
+	player->connect(PLAYER_DEATH_SPIKE_START, this, "_set_wolf_spawn");
 	add_child(player);
 
 	playerController = cast_to<PlayerController>(get_node("PlayerController"));
@@ -99,11 +97,7 @@ void LevelController::end_block() {
 	emit_signal(PLAYER_PROGRESS, static_cast<int>(PlayerProgress::END));
 	score++;
 	load_next_block_elements();
-	if (wolf != nullptr) {
-		wolf->free();
-	}
 	player->set_position(Vector2(spawnPoint->get_position().x, player->get_position().y - SPAWN_PLAYER_ELEVATION));
-	spawnTimer->start();
 }
 
 void LevelController::load_next_block_tile() {

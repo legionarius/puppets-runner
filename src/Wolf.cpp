@@ -16,11 +16,15 @@ void Wolf::_init() {
 void Wolf::_ready() {
 	wolfAnimation = cast_to<AnimationPlayer>(get_node("AnimationPlayer"));
 	wolfAudio = cast_to<AudioStreamPlayer>(get_node("BarkSnd"));
+	player = cast_to<Player>(get_parent()->get_node("Player"));
 	playerAnimation = cast_to<AnimationPlayer>(get_parent()->get_node("Player")->get_node("AnimationPlayer"));
-	playerAnimation->connect(ANIMATION_STARTED, this, "_attack_player");
+	wolfAnimation->connect(ANIMATION_FINISHED, this, "_end_of_murder");
 }
 
 void Wolf::_physics_process(const real_t delta) {
+	_detect_walk_walk_on_spike();
+	_random_bark();
+
 	if (!is_on_floor()) {
 		_motion.y += _gravity;
 	} else {
@@ -28,13 +32,29 @@ void Wolf::_physics_process(const real_t delta) {
 		_motion.x = _speed;
 	}
 
-	_random_bark();
-	move_and_slide(_motion, Vector2(0, -1));
+	if (get_position().x != player->get_position().x) {
+		if (is_on_wall()) {
+			_motion.y = -_jump_speed;
+			_motion.x = _speed;
+		}
+		move_and_slide(_motion, Vector2(0, -1));
+	} else {
+		wolfAnimation->play("attack");
+	}
 }
 
-void Wolf::_attack_player() {
-	if (playerAnimation->get_current_animation() == "death") {
-		wolfAnimation->play("attack");
+void Wolf::_detect_walk_walk_on_spike() {
+	int64_t nbCollision = get_slide_count();
+	for (size_t i = 0; i < nbCollision; i++) {
+		Ref<KinematicCollision2D> collisions = get_slide_collision(i);
+		TileMap *tileMap = cast_to<TileMap>(collisions->get_collider());
+		if (tileMap != nullptr) {
+			auto cell = tileMap->world_to_map(collisions->get_position() - collisions->get_normal());
+			if (tileMap->get_cellv(cell) == PIKE) {
+				_motion.y = -_jump_speed;
+				_motion.x = _speed;
+			};
+		}
 	}
 }
 
@@ -44,13 +64,20 @@ void Wolf::_random_bark() {
 	}
 }
 
+void Wolf::_end_of_murder() {
+	if (wolfAnimation->get_current_animation() == "attack") {
+		emit_signal(PLAYER_IS_BLOCKED);
+	}
+}
+
 void Wolf::_register_methods() {
 	register_method("_init", &Wolf::_init);
 	register_method("_ready", &Wolf::_ready);
 	register_method("_physics_process", &Wolf::_physics_process);
-	register_method("_attack_player", &Wolf::_attack_player);
+	register_method("_end_of_murder", &Wolf::_end_of_murder);
 	register_method("_random_bark", &Wolf::_random_bark);
 	register_property("gravity", &Wolf::_gravity, 20.f);
 	register_property("speed", &Wolf::_speed, 200.f);
 	register_property("jump_speed", &Wolf::_jump_speed, 600.f);
+	register_signal<Wolf>(PLAYER_IS_BLOCKED);
 }

@@ -64,15 +64,17 @@ tracks/1/keys = {
 }
 
 [node name="Wolf" type="KinematicBody2D"]
+collision_layer = 2
 script = ExtResource( 3 )
 
 [node name="Sprite" type="Sprite" parent="."]
 position = Vector2( -56, 240 )
-rotation = -0.104181
 scale = Vector2( 0.452346, 0.452346 )
 texture = ExtResource( 1 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( -1, -32 )
+scale = Vector2( 1, 2.4 )
 shape = SubResource( 1 )
 
 [node name="BarkSnd" type="AudioStreamPlayer" parent="."]

@@ -70,7 +70,7 @@ void Player::set_current_action_type(ActionType actionType) {
 }
 
 void Player::_idle_time_exceed() {
-	emit_signal(PLAYER_IS_BLOCKED);
+	emit_signal(PLAYER_DEATH_SPIKE_START);
 }
 
 void Player::_register_methods() {
@@ -81,6 +81,6 @@ void Player::_register_methods() {
 	register_property("gravity", &Player::_gravity, 20.f);
 	register_property("speed", &Player::_speed, 200.f);
 	register_property("jump_speed", &Player::_jump_speed, 600.f);
-	register_signal<Player>(PLAYER_IS_BLOCKED);
+	register_signal<Player>(PLAYER_DEATH_SPIKE_START);
 	register_signal<Player>(PLAYER_IS_ON_SPIKE);
 }

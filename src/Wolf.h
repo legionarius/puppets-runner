@@ -31,6 +31,7 @@ class Wolf : public KinematicBody2D {
 	AnimationPlayer *wolfAnimation;
 	AudioStreamPlayer *wolfAudio;
 	AnimationPlayer *playerAnimation;
+	Player *player;
 
 	void _random_bark();
 
@@ -40,6 +41,8 @@ public:
 	void _ready();
 	void _physics_process(const real_t delta);
 	void _attack_player();
+	void _detect_walk_walk_on_spike();
+	void _end_of_murder();
 };
 
 } // namespace godot
