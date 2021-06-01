@@ -22,7 +22,6 @@ void Player::_ready() {
 	animationPlayer = cast_to<AnimationPlayer>(get_node("AnimationPlayer"));
 	idleTimer = cast_to<Timer>(get_node("IdleTimer"));
 	idleTimer->connect(TIMEOUT, this, "_idle_time_exceed");
-	animationPlayer->connect(ANIMATION_FINISHED, this, "_set_animation_death");
 }
 
 void Player::_physics_process(const real_t delta) {

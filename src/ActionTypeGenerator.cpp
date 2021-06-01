@@ -65,12 +65,11 @@ ActionType ActionTypeGenerator::_generate_next_valid_actiontype(ActionType lastA
 	int actionTypeChoices[2] = { 0, 2 };
 
 	// Prevent succession of JUMP generation
-	if(nbActionInBloc >= 5 && (lastActionType == ActionType::JUMP || lastActionType == ActionType::JUMP_OVER)){
+	if (nbActionInBloc >= 5 && (lastActionType == ActionType::JUMP || lastActionType == ActionType::JUMP_OVER)) {
 		action = ActionType(actionTypeChoices[0]);
-	}
-	else if (lastActionType == ActionType::JUMP) {
+	} else if (lastActionType == ActionType::JUMP) {
 		action = ActionType(actionTypeChoices[0]);
-	}else {
+	} else {
 		action = ActionType(rng->randi_range(0, 2));
 	}
 
