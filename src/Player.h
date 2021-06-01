@@ -34,6 +34,7 @@ class Player : public KinematicBody2D {
 	real_t _speed;
 	real_t _jump_speed;
 	Vector2 _motion;
+	bool _is_blocked;
 
 	ActionType _current_action;
 	Timer *idleTimer;
@@ -45,10 +46,9 @@ public:
 	void _init();
 	void _ready();
 	void _physics_process(const real_t delta);
-	void _exit();
+	void _idle_time_exceed();
 
 	void set_current_action_type(ActionType actionType);
-	void _idle_time_exceed();
 	void _detect_player_walk_on_spike();
 };
 

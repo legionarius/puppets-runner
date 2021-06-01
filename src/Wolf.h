@@ -16,7 +16,7 @@
 #include <KinematicBody2D.hpp>
 #include <Vector2.hpp>
 
-#define WOLF_VELOCITY 300
+#define WOLF_VELOCITY 500
 
 namespace godot {
 
@@ -27,10 +27,8 @@ class Wolf : public KinematicBody2D {
 	real_t _jump_speed;
 	Vector2 _motion;
 
-	ActionType _current_action;
 	AnimationPlayer *wolfAnimation;
 	AudioStreamPlayer *wolfAudio;
-	AnimationPlayer *playerAnimation;
 	Player *player;
 
 	void _random_bark();
@@ -40,7 +38,6 @@ public:
 	void _init();
 	void _ready();
 	void _physics_process(const real_t delta);
-	void _attack_player();
 	void _detect_walk_walk_on_spike();
 	void _end_of_murder();
 };

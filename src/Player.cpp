@@ -11,6 +11,7 @@ void Player::_init() {
 	_speed = PLAYER_VELOCITY;
 	_jump_speed = 600;
 	_current_action = ActionType::RUN;
+	_is_blocked = false;
 }
 
 void Player::_ready() {
@@ -37,18 +38,22 @@ void Player::_physics_process(const real_t delta) {
 		}
 	}
 
-	if (is_on_wall()) {
-		if (idleTimer->is_stopped()) {
-			if (idleTimer->get_time_left() < 1) {
-				playerAnimation->play("death");
+	if (!_is_blocked) {
+		if (is_on_wall()) {
+			if (idleTimer->is_stopped()) {
+				idleTimer->start();
 			}
-			idleTimer->start();
+		} else {
+			idleTimer->stop();
 		}
-	} else {
-		idleTimer->stop();
 	}
-
 	move_and_slide(_motion, Vector2(0, -1));
+}
+
+void Player::_idle_time_exceed() {
+	_is_blocked = true;
+	playerAnimation->play("death");
+	emit_signal(PLAYER_DEATH_WALL_START);
 }
 
 void Player::_detect_player_walk_on_spike() {
@@ -69,10 +74,6 @@ void Player::set_current_action_type(ActionType actionType) {
 	_current_action = actionType;
 }
 
-void Player::_idle_time_exceed() {
-	emit_signal(PLAYER_DEATH_SPIKE_START);
-}
-
 void Player::_register_methods() {
 	register_method("_init", &Player::_init);
 	register_method("_ready", &Player::_ready);
@@ -81,6 +82,6 @@ void Player::_register_methods() {
 	register_property("gravity", &Player::_gravity, 20.f);
 	register_property("speed", &Player::_speed, 200.f);
 	register_property("jump_speed", &Player::_jump_speed, 600.f);
-	register_signal<Player>(PLAYER_DEATH_SPIKE_START);
+	register_signal<Player>(PLAYER_DEATH_WALL_START);
 	register_signal<Player>(PLAYER_IS_ON_SPIKE);
 }

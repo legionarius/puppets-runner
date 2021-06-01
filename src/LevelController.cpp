@@ -86,7 +86,7 @@ void LevelController::load_player() {
 	player->set_position(spawnPoint->get_position());
 	player->set_name("Player");
 	player->connect(PLAYER_IS_ON_SPIKE, this, "end_level");
-	player->connect(PLAYER_DEATH_SPIKE_START, this, "_set_wolf_spawn");
+	player->connect(PLAYER_DEATH_WALL_START, this, "_set_wolf_spawn");
 	add_child(player);
 
 	playerController = cast_to<PlayerController>(get_node("PlayerController"));

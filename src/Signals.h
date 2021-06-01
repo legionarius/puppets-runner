@@ -9,10 +9,9 @@
 #define BODY_ENTERED "body_entered"
 #define PRESSED "pressed"
 #define VISIBILITY_CHANGED "visibility_changed"
-#define TIMEOUT "timeout"
-#define ANIMATION_STARTED "animation_started"
 #define ANIMATION_FINISHED "animation_finished"
-#define PLAYER_DEATH_SPIKE_START "player_death_spike_start"
+#define PLAYER_DEATH_WALL_START "player_death_wall_start"
+#define TIMEOUT "timeout"
 
 // Custom
 #define NO_BLOC "no_bloc"

@@ -10,14 +10,12 @@ void Wolf::_init() {
 	_gravity = 20;
 	_speed = WOLF_VELOCITY;
 	_jump_speed = 600;
-	_current_action = ActionType::RUN;
 }
 
 void Wolf::_ready() {
 	wolfAnimation = cast_to<AnimationPlayer>(get_node("AnimationPlayer"));
 	wolfAudio = cast_to<AudioStreamPlayer>(get_node("BarkSnd"));
 	player = cast_to<Player>(get_parent()->get_node("Player"));
-	playerAnimation = cast_to<AnimationPlayer>(get_parent()->get_node("Player")->get_node("AnimationPlayer"));
 	wolfAnimation->connect(ANIMATION_FINISHED, this, "_end_of_murder");
 }
 
@@ -32,14 +30,17 @@ void Wolf::_physics_process(const real_t delta) {
 		_motion.x = _speed;
 	}
 
-	if (get_position().x != player->get_position().x) {
+	if (get_position().x > player->get_position().x) {
+		wolfAnimation->set_current_animation("attack");
+		wolfAnimation->play();
+		_motion.x = 0;
+		move_and_slide(_motion, Vector2(0, -1));
+	} else {
 		if (is_on_wall()) {
 			_motion.y = -_jump_speed;
 			_motion.x = _speed;
 		}
 		move_and_slide(_motion, Vector2(0, -1));
-	} else {
-		wolfAnimation->play("attack");
 	}
 }
 
@@ -65,6 +66,7 @@ void Wolf::_random_bark() {
 }
 
 void Wolf::_end_of_murder() {
+	wolfAnimation->set_current_animation("attack");
 	if (wolfAnimation->get_current_animation() == "attack") {
 		emit_signal(PLAYER_IS_BLOCKED);
 	}

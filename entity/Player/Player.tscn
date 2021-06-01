@@ -53,7 +53,7 @@ scale = Vector2( 2.88, 2.4 )
 shape = SubResource( 1 )
 
 [node name="IdleTimer" type="Timer" parent="."]
-wait_time = 3.0
+wait_time = 2.0
 one_shot = true
 
 [node name="JumpSnd" type="AudioStreamPlayer" parent="."]
