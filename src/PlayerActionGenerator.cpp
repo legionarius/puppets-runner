@@ -13,20 +13,17 @@ std::list<Action> PlayerActionGenerator::generate_player_action(std::list<Action
 	for (playerActionsBlocIt = actions.begin(); playerActionsBlocIt != actions.end(); ++playerActionsBlocIt) {
 		ActionType nextActionType;
 		real_t actionWidth;
-		if (std::next(playerActionsBlocIt, 1) == actions.end()) {
+		if (std::next(playerActionsBlocIt, 1) == actions.end())
 			nextActionType = nextBlocActionType.front();
-			actionWidth = WIDTH / nextBlocActionType.size();
-		} else {
+		else
 			nextActionType = *std::next(playerActionsBlocIt, 1);
-			actionWidth = WIDTH / actions.size();
-		}
-
+		actionWidth = WIDTH / actions.size();
 		switch (nextActionType) {
 			case ActionType::JUMP:
-				playerActionsBloc.push_front(Action{ nextActionType, (actionWidth * actionIndex) - 120 });
+				playerActionsBloc.push_front(Action{ nextActionType, (actionWidth * actionIndex) - 140 });
 				break;
 			case ActionType::JUMP_OVER:
-				playerActionsBloc.push_front(Action{ nextActionType, (actionWidth * actionIndex) - 20 });
+				playerActionsBloc.push_front(Action{ nextActionType, (actionWidth * actionIndex) - 30 });
 				break;
 			case ActionType::RUN:
 				playerActionsBloc.push_front(Action{ nextActionType, (actionWidth * actionIndex) - 20 });

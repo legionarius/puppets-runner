@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://entity/TitleScreen/TitleScreen.gdns" type="Script" id=1]
 [ext_resource path="res://asset/texture/title_button.png" type="Texture" id=2]
@@ -6,22 +6,22 @@
 [ext_resource path="res://asset/font/Snowy Night.ttf" type="DynamicFontData" id=4]
 [ext_resource path="res://asset/sprite/wolf_title.png" type="Texture" id=5]
 [ext_resource path="res://asset/sprite/character_title.png" type="Texture" id=6]
+[ext_resource path="res://entity/TitleScreen/DropDownShader.tres" type="Material" id=7]
 
 [sub_resource type="DynamicFont" id=1]
 size = 52
 use_filter = true
 font_data = ExtResource( 4 )
 
-[sub_resource type="StyleBoxFlat" id=2]
+[sub_resource type="StyleBoxFlat" id=4]
 bg_color = Color( 0.6, 0.6, 0.6, 0 )
 
-[sub_resource type="DynamicFont" id=3]
+[sub_resource type="DynamicFont" id=5]
 size = 37
 use_filter = true
 font_data = ExtResource( 4 )
 
-[sub_resource type="Animation" id=4]
-resource_name = "running"
+[sub_resource type="Animation" id=6]
 length = 10.0
 loop = true
 tracks/0/type = "value"
@@ -130,15 +130,6 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Character" type="Sprite" parent="."]
-position = Vector2( -206, 543.591 )
-rotation = -0.226893
-texture = ExtResource( 6 )
-
-[node name="Wolf" type="Sprite" parent="."]
-position = Vector2( -201.206, 602.455 )
-texture = ExtResource( 5 )
-
 [node name="MainMenu" type="Panel" parent="."]
 anchor_left = 0.5
 anchor_top = 0.5
@@ -148,7 +139,7 @@ margin_left = -165.0
 margin_top = -60.0
 margin_right = 165.0
 margin_bottom = 60.0
-custom_styles/panel = SubResource( 2 )
+custom_styles/panel = SubResource( 4 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -185,7 +176,7 @@ margin_left = -47.0
 margin_top = -24.5
 margin_right = 47.0
 margin_bottom = 24.5
-custom_fonts/font = SubResource( 3 )
+custom_fonts/font = SubResource( 5 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "Start"
 __meta__ = {
@@ -208,13 +199,24 @@ margin_left = -30.5
 margin_top = -24.5
 margin_right = 30.5
 margin_bottom = 24.5
-custom_fonts/font = SubResource( 3 )
+custom_fonts/font = SubResource( 5 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "Exit"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="Character" type="Sprite" parent="."]
+material = ExtResource( 7 )
+position = Vector2( -206, 543.591 )
+rotation = -0.226893
+texture = ExtResource( 6 )
+
+[node name="Wolf" type="Sprite" parent="."]
+material = ExtResource( 7 )
+position = Vector2( -201.206, 602.455 )
+texture = ExtResource( 5 )
+
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 autoplay = "running"
-anims/running = SubResource( 4 )
+anims/running = SubResource( 6 )

@@ -23,10 +23,12 @@ LevelController::~LevelController() {
 void LevelController::load_action_type() {
 	actions.push_back(actionTypeGenerator->generate_starting_actions());
 	std::list<real_t> blocLength = { NB_BLOC_LENGTH_3, NB_BLOC_LENGTH_4, NB_BLOC_LENGTH_5 };
-	for (size_t i = 0; i < blocLength.size(); ++i) {
+	size_t i = 0;
+	while (!blocLength.empty()){
 		auto blocList = actionTypeGenerator->generate_actions(blocLength.front(), i + 3);
 		actions.insert(actions.end(), blocList.begin(), blocList.end());
 		blocLength.pop_front();
+		i++;
 	}
 }
 

@@ -21,7 +21,7 @@ class ActionTypeGenerator {
 	RandomNumberGenerator *rng;
 
 private:
-	ActionType _generate_next_valid_actiontype(ActionType actionType);
+	ActionType _generate_next_valid_actiontype(ActionType actionType, int64_t nbActionInBloc);
 	ActionType _generate_next_bad_actiontype(ActionType actionType);
 
 	std::list<ActionType> _generate_valid_bloc(size_t nbAction);
