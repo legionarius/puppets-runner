@@ -1,9 +1,10 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://asset/sprite/wolf.png" type="Texture" id=1]
 [ext_resource path="res://asset/snd/wolf.wav" type="AudioStream" id=2]
 [ext_resource path="res://entity/Wolf/Wolf.gdns" type="Script" id=3]
 [ext_resource path="res://asset/snd/wolf_attack.ogg" type="AudioStream" id=4]
+[ext_resource path="res://entity/TitleScreen/DropDownShader.tres" type="Material" id=5]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 6.6657, 32.0786 )
@@ -68,6 +69,7 @@ collision_layer = 2
 script = ExtResource( 3 )
 
 [node name="Sprite" type="Sprite" parent="."]
+material = ExtResource( 5 )
 position = Vector2( -56, 240 )
 scale = Vector2( 0.452346, 0.452346 )
 texture = ExtResource( 1 )
