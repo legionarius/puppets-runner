@@ -6,7 +6,6 @@
 #define GAMEJAM_TRAINING_TITLESCREEN_H
 
 #include <AnimationPlayer.hpp>
-#include <TextureButton.hpp>
 #include <Control.hpp>
 #include <Godot.hpp>
 #include <InputEvent.hpp>
@@ -15,6 +14,7 @@
 #include <Ref.hpp>
 #include <ResourceLoader.hpp>
 #include <SceneTree.hpp>
+#include <TextureButton.hpp>
 #include <Viewport.hpp>
 
 namespace godot {

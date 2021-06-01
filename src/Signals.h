@@ -12,6 +12,8 @@
 #define ANIMATION_FINISHED "animation_finished"
 #define PLAYER_DEATH_WALL_START "player_death_wall_start"
 #define TIMEOUT "timeout"
+#define ANIMATION_FINISHED "animation_finished"
+#define ANIMATION_STARTED "animation_started"
 
 // Custom
 #define NO_BLOC "no_bloc"

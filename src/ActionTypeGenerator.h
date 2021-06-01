@@ -7,10 +7,10 @@
 
 #include "ActionType.h"
 
+#include <math.h>
 #include <Godot.hpp>
 #include <RandomNumberGenerator.hpp>
 #include <array>
-#include <math.h>
 #include <iterator>
 #include <list>
 #include <sstream>

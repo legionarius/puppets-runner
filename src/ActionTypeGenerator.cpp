@@ -101,7 +101,7 @@ bool ActionTypeGenerator::need_to_change_action_type_at_index(int64_t index, int
 }
 
 real_t ActionTypeGenerator::weight_formula(int64_t index, int64_t nbActionInBloc) {
-	return 3/nbActionInBloc + index;
+	return 3 / nbActionInBloc + index;
 }
 
 real_t ActionTypeGenerator::normalize_to_specific_range(real_t value) {
@@ -109,7 +109,7 @@ real_t ActionTypeGenerator::normalize_to_specific_range(real_t value) {
 	real_t min_action_in_bloc = 3;
 	real_t desired_min = 2;
 	real_t desired_max = 4;
-	real_t actual_max = weight_formula(max_action_in_bloc-1, max_action_in_bloc);
+	real_t actual_max = weight_formula(max_action_in_bloc - 1, max_action_in_bloc);
 	real_t actual_min = weight_formula(0, min_action_in_bloc);
 	return desired_min + (value - actual_min) * (desired_max - desired_min) / (actual_max - actual_min);
 }

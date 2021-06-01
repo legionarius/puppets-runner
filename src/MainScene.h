@@ -6,12 +6,12 @@
 #define GODOT_NATIVE_MAINSCENE_H
 
 #include <Button.hpp>
-#include <TextureButton.hpp>
 #include <Godot.hpp>
-#include <Node.hpp>
 #include <Label.hpp>
+#include <Node.hpp>
 #include <ResourceLoader.hpp>
 #include <SceneTree.hpp>
+#include <TextureButton.hpp>
 #include <Viewport.hpp>
 
 #include "BlocSelector.h"
