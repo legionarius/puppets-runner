@@ -10,10 +10,14 @@ void TitleScreen::_init() {
 }
 
 void TitleScreen::_ready() {
+	String osName = OS::get_singleton()->get_name();
 	TextureButton *exitBtn = Object::cast_to<TextureButton>(get_node("MainMenu/VBoxContainer/Exit"));
 	TextureButton *startBtn = Object::cast_to<TextureButton>(get_node("MainMenu/VBoxContainer/Start"));
 	exitBtn->connect("pressed", this, "_exit");
 	startBtn->connect("pressed", this, "_start");
+	if(osName == "HTML5"){
+		exitBtn->set_visible(false);
+	}
 }
 
 void TitleScreen::_exit() {

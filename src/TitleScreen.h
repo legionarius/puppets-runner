@@ -11,6 +11,7 @@
 #include <InputEvent.hpp>
 #include <InputEventKey.hpp>
 #include <InputMap.hpp>
+#include <OS.hpp>
 #include <Ref.hpp>
 #include <ResourceLoader.hpp>
 #include <SceneTree.hpp>
